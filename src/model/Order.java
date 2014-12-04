@@ -1,7 +1,14 @@
 package com.mss.store.videogame.model;
 
 import java.sql.Date;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Table(name="Orders")
 public class Order {
 	private int		order_Id;
 	private int		customer_Id;
@@ -24,6 +31,9 @@ public class Order {
 	
 	}
 
+	@Id
+	@Column(name="OrderId")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getOrder_Id() {
 		return order_Id;
 	}
@@ -32,6 +42,8 @@ public class Order {
 		this.order_Id = order_Id;
 	}
 
+	
+	@Column(name="CustomerId")
 	public int getCustomer_Id() {
 		return customer_Id;
 	}
@@ -40,6 +52,8 @@ public class Order {
 		this.customer_Id = customer_Id;
 	}
 
+	
+	@Column(name="OrderDate")
 	public Date getOrder_Date() {
 		return order_Date;
 	}
@@ -48,6 +62,8 @@ public class Order {
 		this.order_Date = order_Date;
 	}
 
+	
+	@Column(name="ShipDate")
 	public Date getShip_Date() {
 		return ship_Date;
 	}
@@ -56,6 +72,8 @@ public class Order {
 		this.ship_Date = ship_Date;
 	}
 
+	
+	@Column(name="shipperId")
 	public int getShipper_Id() {
 		return shipper_Id;
 	}
@@ -64,6 +82,8 @@ public class Order {
 		this.shipper_Id = shipper_Id;
 	}
 
+	
+	@Column(name="Freight")
 	public double getFreight() {
 		return freight;
 	}
@@ -72,6 +92,8 @@ public class Order {
 		this.freight = freight;
 	}
 
+	
+	@Column(name="SalesTax")
 	public double getSales_Tax() {
 		return sales_Tax;
 	}
@@ -80,6 +102,8 @@ public class Order {
 		this.sales_Tax = sales_Tax;
 	}
 
+	
+	@Column(name="OrderTimestamp")
 	public String getOrder_Timestamp() {
 		return order_Timestamp;
 	}
@@ -88,6 +112,8 @@ public class Order {
 		this.order_Timestamp = order_Timestamp;
 	}
 
+	
+	@Column(name="TransStatus")
 	public String getTransaction_Status() {
 		return transaction_Status;
 	}
@@ -96,6 +122,8 @@ public class Order {
 		this.transaction_Status = transaction_Status;
 	}
 
+	
+	@Column(name="ErrLoc")
 	public String getError_Log() {
 		return error_Log;
 	}
@@ -104,6 +132,8 @@ public class Order {
 		this.error_Log = error_Log;
 	}
 
+	
+	@Column(name="ErrMsg")
 	public String getError_Message() {
 		return error_Message;
 	}
@@ -112,6 +142,8 @@ public class Order {
 		this.error_Message = error_Message;
 	}
 
+	
+	@Column(name="Fulfilled")
 	public boolean isFulfilled() {
 		return fulfilled;
 	}
@@ -120,6 +152,7 @@ public class Order {
 		this.fulfilled = fulfilled;
 	}
 
+	@Column(name="Deleted")
 	public boolean isDeleted() {
 		return deleted;
 	}
@@ -128,6 +161,7 @@ public class Order {
 		this.deleted = deleted;
 	}
 
+	@Column(name="Paid")
 	public boolean isPaid() {
 		return paid;
 	}
@@ -136,6 +170,8 @@ public class Order {
 		this.paid = paid;
 	}
 
+	
+	@Column(name="PaymentDate")
 	public Date getPayment_Date() {
 		return payment_Date;
 	}

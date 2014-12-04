@@ -1,7 +1,14 @@
 package com.mss.store.videogame.model;
 
 import java.sql.Date;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Table(name="OrderDetails")
 public class OrderDetail 
 {
 	private int 	order_Detail_Id;
@@ -24,6 +31,9 @@ public class OrderDetail
 	}
 
 
+	@Id
+	@Column(name="CustomerId")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getOrder_Detail_Id() {
 		return order_Detail_Id;
 	}
@@ -33,7 +43,9 @@ public class OrderDetail
 		this.order_Detail_Id = order_Detail_Id;
 	}
 
-
+	
+	
+	@Column(name="OrderId")
 	public int getOrder_Id() {
 		return order_Id;
 	}
@@ -44,6 +56,8 @@ public class OrderDetail
 	}
 
 
+	
+	@Column(name="ProductId")
 	public int getProduct_Id() {
 		return product_Id;
 	}
@@ -54,6 +68,7 @@ public class OrderDetail
 	}
 
 
+	@Column(name="Price")
 	public double getPrice() {
 		return price;
 	}
@@ -64,6 +79,7 @@ public class OrderDetail
 	}
 
 
+	@Column(name="Quantity")
 	public int getQuantity() {
 		return quantity;
 	}
@@ -74,6 +90,7 @@ public class OrderDetail
 	}
 
 
+	@Column(name="Total")
 	public double getTotal() {
 		return total;
 	}
@@ -84,6 +101,7 @@ public class OrderDetail
 	}
 
 
+	@Column(name="Fulfilled")
 	public boolean isFulfilled() {
 		return fulfilled;
 	}
@@ -94,6 +112,7 @@ public class OrderDetail
 	}
 
 
+	@Column(name="BillDate")
 	public Date getBill_Date() {
 		return bill_Date;
 	}
@@ -104,6 +123,7 @@ public class OrderDetail
 	}
 
 
+	@Column(name="ShipDate")
 	public Date getShip_Date() {
 		return ship_Date;
 	}
@@ -114,6 +134,7 @@ public class OrderDetail
 	}
 
 
+	@Column(name="ShipperId")
 	public int getShipper_Id() {
 		return shipper_Id;
 	}
@@ -124,6 +145,7 @@ public class OrderDetail
 	}
 
 
+	@Column(name="Freight")
 	public double getFreight() {
 		return freight;
 	}
@@ -134,6 +156,7 @@ public class OrderDetail
 	}
 
 
+	@Column(name="SalesTax")
 	public double getSales_Tax() {
 		return sales_Tax;
 	}

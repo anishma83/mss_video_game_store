@@ -1,5 +1,13 @@
 package com.mss.store.videogame.model;
 
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+
 public class Supplier{
 	private int 	supplier_id;
 	private String 	company_Name;
@@ -25,6 +33,9 @@ public class Supplier{
 		
 	}
 
+	@Id
+	@Column(name="SupplierId")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getSupplier_id() {
 		return supplier_id;
 	}
@@ -33,6 +44,7 @@ public class Supplier{
 		this.supplier_id = supplier_id;
 	}
 
+	@Column(name="CompanyName")
 	public String getCompany_Name() {
 		return company_Name;
 	}
@@ -41,6 +53,8 @@ public class Supplier{
 		this.company_Name = company_Name;
 	}
 
+	
+	@Column(name="ContactFName")
 	public String getContact_Frist_Name() {
 		return contact_Frist_Name;
 	}
@@ -49,6 +63,7 @@ public class Supplier{
 		this.contact_Frist_Name = contact_Frist_Name;
 	}
 
+	@Column(name="ContactLName")
 	public String getContact_Last_Name() {
 		return contact_Last_Name;
 	}
@@ -57,6 +72,7 @@ public class Supplier{
 		this.contact_Last_Name = contact_Last_Name;
 	}
 
+	@Column(name="ContactTitle")
 	public String getContact_Title() {
 		return contact_Title;
 	}
@@ -65,6 +81,8 @@ public class Supplier{
 		this.contact_Title = contact_Title;
 	}
 
+	
+	@Column(name="AdressLine1")
 	public String getAddress_Line_1() {
 		return address_Line_1;
 	}
@@ -73,6 +91,7 @@ public class Supplier{
 		this.address_Line_1 = address_Line_1;
 	}
 
+	@Column(name="AddressLine2")
 	public String getAddress_Line_2() {
 		return address_Line_2;
 	}
@@ -81,6 +100,7 @@ public class Supplier{
 		this.address_Line_2 = address_Line_2;
 	}
 
+	@Column(name="City")
 	public String getCity() {
 		return city;
 	}
@@ -88,7 +108,9 @@ public class Supplier{
 	public void setCity(String city) {
 		this.city = city;
 	}
-
+	
+	
+	@Column(name="UsState")
 	public String getUs_State() {
 		return us_State;
 	}
@@ -97,6 +119,8 @@ public class Supplier{
 		this.us_State = us_State;
 	}
 
+	
+	@Column(name="Postal")
 	public String getPostal() {
 		return postal;
 	}
@@ -105,6 +129,8 @@ public class Supplier{
 		this.postal = postal;
 	}
 
+	
+	@Column(name="Country")
 	public String getCountry() {
 		return country;
 	}
@@ -113,6 +139,8 @@ public class Supplier{
 		this.country = country;
 	}
 
+	
+	@Column(name="Phone")
 	public String getPhone() {
 		return phone;
 	}
@@ -121,6 +149,8 @@ public class Supplier{
 		this.phone = phone;
 	}
 
+	
+	@Column(name="Email")
 	public String getEmail() {
 		return email;
 	}
@@ -129,14 +159,18 @@ public class Supplier{
 		this.email = email;
 	}
 
+	
+	@Column(name="WebSite")
 	public String getWebsite() {
 		return website;
 	}
-
+	
 	public void setWebsite(String website) {
 		this.website = website;
 	}
 
+	
+	@Column(name="CurerntOrder")
 	public String getCurrent_Order() {
 		return current_Order;
 	}
@@ -145,6 +179,8 @@ public class Supplier{
 		this.current_Order = current_Order;
 	}
 
+	
+	@Column(name="CustomerId")
 	public String getCustomer_Id() {
 		return customer_Id;
 	}
@@ -153,6 +189,8 @@ public class Supplier{
 		this.customer_Id = customer_Id;
 	}
 
+	
+	@Column(name="Logo")
 	public String getLogo() {
 		return logo;
 	}
@@ -160,7 +198,9 @@ public class Supplier{
 	public void setLogo(String logo) {
 		this.logo = logo;
 	}
-
+	
+	
+	@Column(name="Notes")
 	public String getNotes() {
 		return notes;
 	}

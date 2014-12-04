@@ -1,5 +1,12 @@
 package com.mss.store.videogame.model;
 
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Product {
 	private int 	product_Id;
 	private String	sku;
@@ -20,7 +27,9 @@ public class Product {
 		
 	}
 
-
+	@Id
+	@Column(name="ProductId")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getProduct_Id() {
 		return product_Id;
 	}
@@ -31,6 +40,7 @@ public class Product {
 	}
 
 
+	@Column(name="Sku")
 	public String getSku() {
 		return sku;
 	}
@@ -41,6 +51,7 @@ public class Product {
 	}
 
 
+	@Column(name="SupplierProductId")
 	public String getSupplier_Product_Id() {
 		return supplier_Product_Id;
 	}
@@ -51,6 +62,7 @@ public class Product {
 	}
 
 
+	@Column(name="ProductName")
 	public String getProduct_Name() {
 		return product_Name;
 	}
@@ -61,6 +73,7 @@ public class Product {
 	}
 
 
+	@Column(name="SupplierId")
 	public int getSupplier_Id() {
 		return supplier_Id;
 	}
@@ -71,6 +84,7 @@ public class Product {
 	}
 
 
+	@Column(name="CategoryId")
 	public int getCategory_Id() {
 		return category_Id;
 	}
@@ -81,6 +95,7 @@ public class Product {
 	}
 
 
+	@Column(name="UnitPrice")
 	public double getUnit_Price() {
 		return unit_Price;
 	}
@@ -91,6 +106,7 @@ public class Product {
 	}
 
 
+	@Column(name="UnitsInStock")
 	public int getUnits_In_Stock() {
 		return units_In_Stock;
 	}
@@ -101,6 +117,7 @@ public class Product {
 	}
 
 
+	@Column(name="UnitsOnOrder")
 	public int getUnits_On_Order() {
 		return units_On_Order;
 	}
@@ -111,6 +128,7 @@ public class Product {
 	}
 
 
+	@Column(name="ReOrderLevel")
 	public int getReorder_Level() {
 		return reorder_Level;
 	}
@@ -121,6 +139,7 @@ public class Product {
 	}
 
 
+	@Column(name="ProductrAvailability")
 	public String getProduct_Availability() {
 		return product_Availability;
 	}
@@ -131,6 +150,7 @@ public class Product {
 	}
 
 
+	@Column(name="Image")
 	public String getImage() {
 		return image;
 	}
@@ -141,6 +161,7 @@ public class Product {
 	}
 
 
+	@Column(name="Notes")
 	public String getNotes() {
 		return notes;
 	}
