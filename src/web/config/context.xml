@@ -21,9 +21,13 @@
 
 <tx:annotation-driven />
 <mvc:annotation-driven />
+<contexnt:component-scan base-package="com.mss.store.videogame.web.controllers"></contexnt:component-scan>
 <contexnt:property-placeholder location="classpath:properties.txt"/>
-<!--
-    <bean id="viewResolver"
+
+
+   
+    <!--
+     <bean id="viewResolver"
     	class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
         <property name="prefix">
             <value>/</value>
@@ -32,7 +36,6 @@
             <value>.jsp</value>
         </property>
     </bean>
-    
       
      <bean id = "transactionManager"
         class = "org.springframework.orm.hibernate4.HibernateTransactionManager">
