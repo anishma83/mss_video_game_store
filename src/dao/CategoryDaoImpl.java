@@ -29,12 +29,13 @@ public class CategoryDaoImpl implements CategoryDao
 		tx.commit();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Category> list() {
 	
 		List<Category> categories;
 		Session session = this.sessionFactory.getCurrentSession();
-		categories = (List<Category>) session.createQuery("from Category");
+		categories = (List<Category>) session.createQuery("from Category").list();
 		return categories;
 	}
 
@@ -42,14 +43,14 @@ public class CategoryDaoImpl implements CategoryDao
 	public List<Category> lookupById(int id) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Category> categoires = (List<Category>) session.createQuery("from Category where category_Id="+id);
+		List<Category> categoires = (List<Category>) session.createQuery("from Category where category_Id="+id).list();
 		return categoires;
 	}
 
 	@Override
 	public List<Category> lookupByName(String name) {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Category> categories = (List<Category>) session.createQuery("from Category where name='"+name+"'");
+		List<Category> categories = (List<Category>) session.createQuery("from Category where name='"+name+"'").list();
 		return categories;
 	}
 
@@ -57,7 +58,7 @@ public class CategoryDaoImpl implements CategoryDao
 	public List<Category> lookupByDescription(String description) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Category> categories = (List<Category>) session.createQuery("from Category where name='"+description+"'");
+		List<Category> categories = (List<Category>) session.createQuery("from Category where name='"+description+"'").list();
 		return categories;
 	}
 	
