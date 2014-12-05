@@ -87,6 +87,33 @@
         </property>
     </bean>
  				 
+ 	   <bean id="CategoryDao" class="com.mss.store.videogame.dao.CategoryDaoImpl" >
+     <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+    
+       <bean id="CustomerDao" class="com.mss.store.videogame.dao.CustomerDaoImpl" >
+     <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+    
+       <bean id="OrderDao" class="com.mss.store.videogame.dao.OrderDaoImpl" >
+     <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+    
+       <bean id="OrderDetailDao" class="com.mss.store.videogame.dao.OrderDetailDaoImpl" >
+     <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+    
+       <bean id="ProductDao" class="com.mss.store.videogame.dao.ProdcutDaoImpl" >
+     <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+       <bean id="ShipperDao" class="com.mss.store.videogame.dao.ShipperDaoImpl" >
+     <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+       <bean id="SupplierDao" class="com.mss.store.videogame.dao.SupplierDaoImpl" >
+     <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+    			 
+ 				 
     
     -->
  
