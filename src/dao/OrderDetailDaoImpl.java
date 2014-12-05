@@ -38,7 +38,7 @@ public class OrderDetailDaoImpl implements OrderDetailDao{
 	public List<OrderDetail> lookupById(int id) {
 		List<OrderDetail> orderdetails;
 		Session session = sessionfactory.getCurrentSession();
-		orderdetails=(List<OrderDetail>) session.createQuery("from OrderDetails where id=" + id).list();
+		orderdetails=(List<OrderDetail>) session.createQuery("from OrderDetails where id='" + id+"'").list();
 		return orderdetails;
 	}
 
@@ -54,7 +54,7 @@ public class OrderDetailDaoImpl implements OrderDetailDao{
 	public List<OrderDetail> lookupByProductId(int productId) {
 		List<OrderDetail> orderdetails;
 		Session session = sessionfactory.getCurrentSession();
-		orderdetails=(List<OrderDetail>) session.createQuery("from OrderDetails where productId=" + productId).list();
+		orderdetails=(List<OrderDetail>) session.createQuery("from OrderDetails where productId='" + productId+"'").list();
 		return orderdetails;
 	}
 }
