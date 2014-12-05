@@ -23,14 +23,14 @@
 <mvc:annotation-driven />
 <contexnt:component-scan base-package="com.mss.store.videogame.web.controllers"></contexnt:component-scan>
 <contexnt:property-placeholder location="classpath:properties.txt"/>
-<mvc:resources mapping="/**" location="/"/>
+<mvc:resources mapping="/resources/**" location="/resources/"/>
 
 
 
      <bean id="viewResolver"
     	class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
         <property name="prefix">
-            <value>/</value>
+            <value>/view/</value>
         </property>
         <property name="suffix">
             <value>.jsp</value>
