@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Table(name="Shippers")
+@Entity
 public class Shipper {
 	private int 	shipper_Id;
 	private String 	shipper_Name;

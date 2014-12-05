@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Table(name="ECOMMERCECUSTOMER")
+@Entity
 public class Customer {
 	
 	private	int		customer_Id;

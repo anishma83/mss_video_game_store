@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Entity
+@Table(name="Product")
 public class Product {
 	private int 	product_Id;
 	private String	sku;
