@@ -5,13 +5,7 @@
 <head>
 <title>Test</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="css/main.css" >
-<link rel="stylesheet" href="css/animate.css" >
-<link rel="stylesheet" href="css/bootstrap.min.css" >
-<link rel="stylesheet" href="css/font-awesome.min.css" >
-<link rel="stylesheet" href="css/prettyPhoto.css" >
-<link rel="stylesheet" href="css/price-range.css" >
-<link rel="stylesheet" href="css/responsive.css" >
+<%@include file="cssFiles.html"%>
 </head>
 <body>
 hello Test
@@ -34,11 +28,6 @@ hello Test
 </table>
 
 
- <script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.scrollUp.min.js"></script>
-	<script src="js/price-range.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
+<%@include file="jsFiles.html"%>
 </body>
 </html>
