@@ -34,7 +34,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	public List<Customer> list() {
 		List<Customer> customers;
 		Session session=this.sessionfactory.getCurrentSession();
-		customers = (List<Customer>) session.createQuery(" * from ECOMMERCECUSTOMER");
+		customers = (List<Customer>) session.createQuery("from Customer").list();
 		return customers;
 	}
 
@@ -42,7 +42,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	public List<Customer> lookupById(int customerId) {
 		List<Customer> customers;
 		Session session=this.sessionfactory.getCurrentSession();
-		customers = (List<Customer>) session.createQuery(" * from ECOMMERCECUSTOMER where customerID='"+customerId+"'");
+		customers = (List<Customer>) session.createQuery("from Customer where customerID="+customerId).list();
 		return customers;
 	}
 
@@ -50,7 +50,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	public List<Customer> lookupByEmail(String email) {
 		List<Customer> customers;
 		Session session= this.sessionfactory.getCurrentSession();
-		customers = (List<Customer>) session.createQuery("* from ECOMMERCECUSTOMER where email='"+email+"'");
+		customers = (List<Customer>) session.createQuery("from ECOMMERCECUSTOMER where email="+email).list();
 		return customers;
 	}
 
