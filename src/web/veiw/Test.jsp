@@ -8,6 +8,7 @@
 <%@include file="cssFiles.html"%>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
 hello Test
 <p>${hello}</p>
 <p>Customers</p>
@@ -44,13 +45,10 @@ hello Test
 </table>
 
 <p>Product</p>
-<table>
-<c:forEach var="product" items="${prodcuts}">
-<tr>
-<td>${prodcut.product_Name}</td>
-</tr>
+<c:forEach var="product" items="${products}">
+<%@include file="product.jsp"%>
 </c:forEach>
-</table>
+
 
 <p>Shippers</p>
 <table>
@@ -70,7 +68,7 @@ hello Test
 </c:forEach>
 </table>
 
-
-<%@include file="jsFiles.html"%>
+<jsp:include page="footer.jsp" ></jsp:include>
+<jsp:include page="jsFiles.html"></jsp:include>
 </body>
 </html>
