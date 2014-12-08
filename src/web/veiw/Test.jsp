@@ -27,6 +27,49 @@ hello Test
 </c:forEach>
 </table>
 
+<p>Orders</p>
+<table>
+<c:forEach var="order" items="${orders}">
+<td>{$order.order_Id}</td>
+</c:forEach>
+</table>
+
+<p> Order Details </p>
+<table>
+<c:forEach var="orderDetail" items="${orderDetails}">
+<tr>
+<td>${orderDetail.order_Detail_Id}</td>
+</tr>
+</c:forEach>
+</table>
+
+<p>Product</p>
+<table>
+<c:forEach var="product" items="${prodcuts}">
+<tr>
+<td>${prodcut.product_Name}</td>
+</tr>
+</c:forEach>
+</table>
+
+<p>Shippers</p>
+<table>
+<c:forEach var="shipper" items="${shippers}">
+<tr>
+<td>${shipper.shipper_Name}</td>
+</tr>
+</c:forEach>
+</table>
+
+<p>Suppliers</p>
+<table>
+<c:forEach var="supplier" items="${suppliers}">
+<tr>
+<td>${supplier.supplier_Id}</td>
+</tr>
+</c:forEach>
+</table>
+
 
 <%@include file="jsFiles.html"%>
 </body>
