@@ -3,8 +3,6 @@ package com.mss.store.videogame.model;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Table(name="Shippers")
@@ -20,7 +18,7 @@ public class Shipper {
 	}
 
 	@Id
-	@Column(name="ShiperId")
+	@Column(name="ShipperID")
 	public int getShipper_Id() {
 		return shipper_Id;
 	}

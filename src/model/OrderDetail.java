@@ -23,7 +23,7 @@ public class OrderDetail
 	private Date	ship_Date;
 	private int		shipper_Id;
 	private double	freight;
-	private double sales_Tax;
+	private double 	sales_Tax;
 	
 	
 	public OrderDetail()
@@ -33,7 +33,7 @@ public class OrderDetail
 
 
 	@Id
-	@Column(name="CustomerId")
+	@Column(name="OrderDetailId")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getOrder_Detail_Id() {
 		return order_Detail_Id;

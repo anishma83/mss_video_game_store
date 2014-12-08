@@ -10,7 +10,7 @@ import javax.persistence.Id;
 @Entity
 @Table(name="Suppliers")
 public class Supplier{
-	private int 	supplier_id;
+	private int 	supplier_Id;
 	private String 	company_Name;
 	private String 	contact_Frist_Name;
 	private String 	contact_Last_Name;
@@ -37,12 +37,12 @@ public class Supplier{
 	@Id
 	@Column(name="SupplierId")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int getSupplier_id() {
-		return supplier_id;
+	public int getSupplier_Id() {
+		return supplier_Id;
 	}
 
-	public void setSupplier_id(int supplier_id) {
-		this.supplier_id = supplier_id;
+	public void setSupplier_Id(int supplier_id) {
+		this.supplier_Id = supplier_id;
 	}
 
 	@Column(name="CompanyName")
@@ -83,7 +83,7 @@ public class Supplier{
 	}
 
 	
-	@Column(name="AdressLine1")
+	@Column(name="AddressLine1")
 	public String getAddress_Line_1() {
 		return address_Line_1;
 	}
@@ -171,7 +171,7 @@ public class Supplier{
 	}
 
 	
-	@Column(name="CurerntOrder")
+	@Column(name="CurrentOrder")
 	public String getCurrent_Order() {
 		return current_Order;
 	}

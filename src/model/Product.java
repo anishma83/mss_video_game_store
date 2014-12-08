@@ -119,7 +119,7 @@ public class Product {
 	}
 
 
-	@Column(name="UnitsOnOrder")
+	@Column(name="UnitesOnOrder")
 	public int getUnits_On_Order() {
 		return units_On_Order;
 	}
@@ -130,7 +130,7 @@ public class Product {
 	}
 
 
-	@Column(name="ReOrderLevel")
+	@Column(name="ReOrdeLevel")
 	public int getReorder_Level() {
 		return reorder_Level;
 	}
@@ -141,7 +141,7 @@ public class Product {
 	}
 
 
-	@Column(name="ProductrAvailability")
+	@Column(name="ProductAvailability")
 	public String getProduct_Availability() {
 		return product_Availability;
 	}
