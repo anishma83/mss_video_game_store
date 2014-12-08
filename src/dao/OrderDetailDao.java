@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mss.store.videogame.model.OrderDetail;
 
+
 public interface OrderDetailDao {
 	
 	public void save(OrderDetail orderDetail);

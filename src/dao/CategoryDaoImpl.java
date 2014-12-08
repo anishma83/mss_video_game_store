@@ -43,6 +43,7 @@ public class CategoryDaoImpl implements CategoryDao
 	public List<Category> lookupById(int id) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
 		List<Category> categoires = (List<Category>) session.createQuery("from Category where category_Id="+id).list();
 		return categoires;
 	}
@@ -50,6 +51,7 @@ public class CategoryDaoImpl implements CategoryDao
 	@Override
 	public List<Category> lookupByName(String name) {
 		Session session = this.sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
 		List<Category> categories = (List<Category>) session.createQuery("from Category where name='"+name+"'").list();
 		return categories;
 	}
@@ -58,6 +60,7 @@ public class CategoryDaoImpl implements CategoryDao
 	public List<Category> lookupByDescription(String description) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
 		List<Category> categories = (List<Category>) session.createQuery("from Category where name='"+description+"'").list();
 		return categories;
 	}

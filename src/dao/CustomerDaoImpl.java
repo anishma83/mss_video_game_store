@@ -30,6 +30,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Customer> list() {
 		List<Customer> customers;
@@ -38,6 +39,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		return customers;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Customer> lookupById(int customerId) {
 		List<Customer> customers;
@@ -46,6 +48,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		return customers;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Customer> lookupByEmail(String email) {
 		List<Customer> customers;
