@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mss.store.videogame.dao.CategoryDao;
@@ -46,9 +47,10 @@ public class ProductController {
 		return mav;
 	}
 	@RequestMapping("/search")
-	protected ModelAndView searchProd(@ModelAttribute() Product priceRange,HttpServletRequest request,
-			HttpServletResponse response) throws Exception
+	protected ModelAndView searchProd(HttpServletRequest request,
+			HttpServletResponse response, @RequestParam("searchValue") String searchValue) throws Exception
 	{
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("Template");
 		List<Product> pi = new ArrayList<Product>();
