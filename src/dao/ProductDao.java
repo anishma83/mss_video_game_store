@@ -12,4 +12,6 @@ public interface ProductDao {
 	public List<Product> lookupBySKU(String sku);
 	public List<Product> lookupByCategoryId(int id);
 	public List<Product> lookupBySupplierId(int supplierId);
+	public List<Product> lookupByName(String name);
+	public List<Product> search(String searchCol,String searchValue);
 }
