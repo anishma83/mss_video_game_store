@@ -73,11 +73,12 @@ private SessionFactory sessionfactory;
 		return products;
 	}
 	
+	
 	public List<Product> lookupByName(String name)
 	{
 		Session session = this.sessionfactory.getCurrentSession();
 		@SuppressWarnings("unchecked")
-		List<Product> products = (List<Product>) session.createQuery("from Product where name =?").setString(0, name);
+		List<Product> products = (List<Product>) session.createQuery("from Product where name =?").setString(0, name).list();
 		return products;
 	}
 	
@@ -91,6 +92,14 @@ private SessionFactory sessionfactory;
 		@SuppressWarnings("unchecked")
 		List<Product> products = query.list();
 		
+		return products;
+	}
+
+	@Override
+	public List<Product> lookupByPriceRange(int low, int high) {
+		Session session = this.sessionfactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		List<Product> products = session.createQuery("from Product where UnitPrice >? AND UnitPrice<?").setParameter(0, low).setParameter(1,high).list();
 		return products;
 	}
 
