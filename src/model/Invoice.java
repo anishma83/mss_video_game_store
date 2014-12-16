@@ -1,5 +1,3 @@
-package com.mss.store.videogame.model;
-
 import java.util.List;
 
 /**
@@ -12,6 +10,7 @@ public class Invoice {
 	private Customer customer;
 	private Order order;
 	private List<OrderDetail> orderDetails;
+	private List<Product> products;
 	
 	/**
 	 * Creates new Invoice from the specified Customer, Order, and OrderDetails.
@@ -20,11 +19,13 @@ public class Invoice {
 	 * @param order - Order the invoice is created for
 	 * @param orderDetails - A list of all the order details that coincide with the order
 	 */
-	public Invoice(Customer customer, Order order, List<OrderDetail> orderDetails)
+	public Invoice(Customer customer, Order order, List<OrderDetail> orderDetails, List<Product> products)
 	{
 		this.customer = customer;
 		this.order = order;
 		this.orderDetails = orderDetails;
+		this.products = products;
+		
 	}
 	
 	public Customer getCustomer() {
@@ -37,6 +38,14 @@ public class Invoice {
 	
 	public List<OrderDetail> getOrderDetails() {
 		return orderDetails;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 	
 
