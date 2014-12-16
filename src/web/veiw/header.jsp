@@ -1,3 +1,4 @@
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
 			<div class="container">
@@ -99,14 +100,16 @@
 										<li><a href="blog-single.html">Blog Single</a></li>
                                     </ul>
                                 </li> 
-								<li><a href="404.jsp">404</a></li>
+								<li><a href="view/404.jsp">404</a></li>
 								<li><a href="contact-us.html">Contact</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+							<form:form method="GET" action="${pageContext.request.contextPath}/search">
+								<input name="searchValue" type="text" placeholder="Search" />
+							</form:form>
 						</div>
 					</div>
 				</div>
