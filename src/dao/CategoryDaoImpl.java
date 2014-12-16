@@ -52,7 +52,7 @@ public class CategoryDaoImpl implements CategoryDao
 	public List<Category> lookupByName(String name) {
 		Session session = this.sessionFactory.getCurrentSession();
 		@SuppressWarnings("unchecked")
-		List<Category> categories = (List<Category>) session.createQuery("from Category where name=?").setString(01, name).list();
+		List<Category> categories = (List<Category>) session.createQuery("from Category where name=?").setString(0, name).list();
 		return categories;
 	}
 
