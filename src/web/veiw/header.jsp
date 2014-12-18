@@ -61,7 +61,8 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="/checkout.do">Checkout &raquo;</a></li>
+								<li><a href="/WEB-INF/jsp/viewCart.jsp"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
 							</ul>
 						</div>
@@ -92,6 +93,7 @@
 										<li><a href="checkout.html">Checkout</a></li> 
 										<li><a href="cart.html">Cart</a></li> 
 										<li><a href="login.html">Login</a></li> 
+										<li><a href="account/register.do">Register</a></li>
                                     </ul>
                                 </li> 
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>

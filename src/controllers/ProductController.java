@@ -18,11 +18,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mss.store.videogame.dao.CategoryDao;
 import com.mss.store.videogame.dao.ProductDao;
+import com.mss.store.videogame.model.CartService;
 import com.mss.store.videogame.model.Category;
 import com.mss.store.videogame.model.Product;
 
 @Controller
 public class ProductController {
+	private CartService cartService;
+	
+	public void setCartService(CartService cartService) {
+		this.cartService = cartService;
+	}
 	
 	@Autowired
 	private ProductDao	productDao;
@@ -53,10 +59,11 @@ public class ProductController {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("Template");
+		List<Product> pi = new ArrayList<Product>();
 		List<Category> categories = categoryDao.list();
 		
 		mav.addObject("categories", categories);
-		mav.addObject("products", productDao.search("product_Name", searchValue));
+		mav.addObject("products", productDao.list());
 		
 		mav.addObject("pr", new Product());//pricerange
 		mav.addObject("catnames", new Category());
@@ -64,14 +71,29 @@ public class ProductController {
 		return mav;
 	}
 	@RequestMapping("/genre")
-	public ModelAndView getProdByCat(@ModelAttribute("Mss_Video_Game_Store") Category cat, ModelAndView mav)throws Exception {
+	public ModelAndView wtf(@ModelAttribute("Mss_Video_Game_Store") Category cat, ModelAndView mav)throws Exception {
 		//ModelAndView mav = new ModelAndView()	
 		mav.setViewName("Template");
-		List<Category> cl =  categoryDao.lookupByName(cat.getName());
-		List<Product> li = productDao.lookupByCategoryId(cl.get(0).getCategory_Id());
-	
-		mav.addObject("categories", categoryDao.list());
-		mav.addObject("products", li);
+		List<Category> cl =  categoryDao.list();
+		List<Product> li = productDao.list();
+		List<Product> tmp = new ArrayList<Product>();
+		
+		String name = cat.getName();
+		int id = -1;
+		for(Category c : cl){
+			if(name.equals(c.getName())){
+				id=c.getCategory_Id();
+			}
+		}
+		System.out.println(name+"  "+id);
+		for(Product p : li){
+			if(id==p.getCategory_Id()){
+				tmp.add(p);
+			}
+		}
+		
+		mav.addObject("categories", cl);
+		mav.addObject("products", (List<Product>)tmp);
 		
 		mav.addObject("pr", new Product());//pricerange
 		mav.addObject("catnames", new Category());
@@ -81,7 +103,7 @@ public class ProductController {
 	@RequestMapping("/pricing")
 	public ModelAndView plt(@ModelAttribute() Product priceRange, ModelAndView mav)throws Exception {
 		mav.setViewName("Template");
-		//List<Product> pi = new ArrayList<Product>();
+		List<Product> pi = new ArrayList<Product>();
 		List<Category> categories = categoryDao.list();
 			
 		String pr = priceRange.getNotes();
@@ -89,8 +111,13 @@ public class ProductController {
 		int start=Integer.parseInt(st.nextToken());
 		st.nextToken();
 		int end=Integer.parseInt(st.nextToken());
+		for(Product p : productDao.list()){
+			if(p.getUnit_Price()>start&&p.getUnit_Price()<end){
+				pi.add(p);
+			}
+		}
 		
-		mav.addObject("products", productDao.lookupByPriceRange(start, end));
+		mav.addObject("products", pi);
 		mav.addObject("categories", categories);
 		
 		mav.addObject("pr", new Product());//pricerange
