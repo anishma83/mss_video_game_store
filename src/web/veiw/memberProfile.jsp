@@ -74,7 +74,7 @@
 								${customer.billing_Postal}, ${customer.billing_Country }</td>
 						</tr>
 						<tr>
-							<td><button class="btn btn-default" type="button" href="updateProfile">Update Profile</button></td>
+							<td><button class="btn btn-default" type="button" onclick="window.location = updateProfile.jsp">Update Profile</button></td>
 						</tr>
 
 					</table>
