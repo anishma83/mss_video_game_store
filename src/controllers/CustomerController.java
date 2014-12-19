@@ -33,7 +33,7 @@ public class CustomerController {
 	
 	@Autowired
 	Customer customer;
-	
+
 	@RequestMapping(value="/signIn",method = RequestMethod.GET)
 	public ModelAndView signInPage(){
 		ModelAndView model=new ModelAndView("login");
@@ -44,14 +44,14 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value="/signInCheck",method = RequestMethod.GET)
-	public ModelAndView SignIn(@Valid @ModelAttribute("customer") Customer customer, BindingResult result, HttpSession session)
+	public ModelAndView SignIn(@Valid @ModelAttribute("customer") Customer customer, BindingResult result)
 	{
 		
 		ModelAndView model = new ModelAndView();
 		Customer customerSignInCheck = customerDao.signedIn(customer.getEmail());
 		
 		if(customerSignInCheck.getPassword().equals(customer.getPassword())){
-			session.setAttribute("is_Logged_In", true);
+			customer.setIs_Logged_In(true);
 			this.customer=customerSignInCheck;
 			System.out.println("the information that came back from dao is: "+this.customer.getAddress_1());
 			model.setViewName("product");
@@ -59,10 +59,8 @@ public class CustomerController {
 		else {
 			model.setViewName("login");
 			model.addObject("Login_Info", "Username or Password not found");
-			session.setAttribute("is_Logged_In", false);
+			customer.setIs_Logged_In(false);
 		}
-		
-		System.out.println(session.getAttribute("is_Logged_In").toString());
 		return model;
 		 
 	}
@@ -78,7 +76,7 @@ public class CustomerController {
 	
 		
 	@RequestMapping(value="/saveCustomer", method= RequestMethod.GET)
-	public ModelAndView saveCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult result, HttpSession session) throws ParseException {
+	public ModelAndView saveCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult result) throws ParseException {
 		ModelAndView model = new ModelAndView("viewProfile");
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
@@ -93,10 +91,9 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value="/viewProfile", method= RequestMethod.GET)
-	public ModelAndView viewProfile(HttpSession session ) {
+	public ModelAndView viewProfile() {
 		ModelAndView model = new ModelAndView("memberProfile");
 		model.addObject("customer", customer);
-		System.out.println(customer.getAddress_1());
 		model.addObject("profilePage", "viewProfile");
 	return model;
 	}

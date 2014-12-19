@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Table(name="ECOMMERCECUSTOMER")
 @Entity
@@ -37,9 +38,11 @@ public class Customer {
 	private Date	date_Entered;
 	private String	member;
 	
+	@Transient private boolean is_Logged_In;
+	
 	public Customer()
 	{
-		
+		is_Logged_In = false;
 	}
 
 	@Id
@@ -48,7 +51,7 @@ public class Customer {
 	public int getCustomer_Id() {
 		return customer_Id;
 	}
-
+	
 	public void setCustomer_Id(int customer_Id) {
 		this.customer_Id = customer_Id;
 	}
@@ -97,6 +100,15 @@ public class Customer {
 	@Column(name="City")
 	public String getCity() {
 		return city;
+	}
+
+	@Transient
+	public boolean isIs_Logged_In() {
+		return is_Logged_In;
+	}
+	@Transient
+	public void setIs_Logged_In(boolean is_Logged_In) {
+		this.is_Logged_In = is_Logged_In;
 	}
 
 	public void setCity(String city) {

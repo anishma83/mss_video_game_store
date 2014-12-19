@@ -40,17 +40,19 @@ public class CheckoutController {
 	ShipperDao	shipperDao;
 	@Autowired
 	SupplierDao	supplierDao;
+	@Autowired
+	Customer customer;
 	
-	@RequestMapping("/checkout")
+	@RequestMapping("/checkout1")
 	protected ModelAndView createCheckout(HttpServletRequest request,
 			HttpServletResponse response)
 	{
 		ModelAndView model = new ModelAndView("Template");
-		boolean isLoggedIn = false;
-		Customer customer = null;
+		boolean isLoggedIn = customer.isIs_Logged_In();
+		
 		if(isLoggedIn)
 		{
-			 customer =(Customer) request.getSession().getAttribute("Customer");
+			 
 		}else
 		{
 			customer = customerDao.lookupById(1).get(0);
