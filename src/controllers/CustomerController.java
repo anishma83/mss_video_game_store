@@ -52,15 +52,16 @@ public class CustomerController {
 		String mainPage ="";
 		
 		if(customerSignInCheck.getPassword().equals(customer.getPassword())){
-			customer.setIs_Logged_In(true);
+			
 			this.customer=customerSignInCheck;
+			this.customer.setIs_Logged_In(true);
 			System.out.println("the information that came back from dao is: "+this.customer.getAddress_1());
 			model.setViewName("redirect:/products");
 		}
 		else {
 			mainPage="login.jsp";
 			model.addObject("Login_Info", "Username or Password not found");
-			customer.setIs_Logged_In(false);
+			this.customer.setIs_Logged_In(false);
 		}
 		model.addObject("mainpage", mainPage);
 		return model;

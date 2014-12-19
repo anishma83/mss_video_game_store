@@ -43,7 +43,7 @@ public class CheckoutController {
 	@Autowired
 	Customer customer;
 	
-	@RequestMapping("/checkout1")
+	@RequestMapping("/finalCheckout")
 	protected ModelAndView createCheckout(HttpServletRequest request,
 			HttpServletResponse response)
 	{
