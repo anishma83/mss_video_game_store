@@ -1,18 +1,4 @@
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/animate.css" />
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/front-awesome.min.css" />
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/main.css" />
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/prettyPhoto.css" />
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/price-range.css" />
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/responsive.css" />
-<jsp:include page="header.jsp"></jsp:include>
+
 <title>Member Profile</title>
 <section id="form">
 	<!--form-->
@@ -94,4 +80,3 @@
 		</div>
 	</div>
 </section>
-<jsp:include page="footer.jsp"></jsp:include>

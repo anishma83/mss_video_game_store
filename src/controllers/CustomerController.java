@@ -36,9 +36,9 @@ public class CustomerController {
 
 	@RequestMapping(value="/signIn",method = RequestMethod.GET)
 	public ModelAndView signInPage(){
-		ModelAndView model=new ModelAndView("login");
+		ModelAndView model=new ModelAndView("Template");
 		Customer customer = new Customer();
-		model.addObject("mainpage", "login");
+		model.addObject("mainpage", "login.jsp");
 		model.addObject("customer", customer);
 		return model;
 	}
@@ -47,20 +47,21 @@ public class CustomerController {
 	public ModelAndView SignIn(@Valid @ModelAttribute("customer") Customer customer, BindingResult result)
 	{
 		
-		ModelAndView model = new ModelAndView();
+		ModelAndView model = new ModelAndView("Template");
 		Customer customerSignInCheck = customerDao.signedIn(customer.getEmail());
-		
+		String mainPage ="";
 		if(customerSignInCheck.getPassword().equals(customer.getPassword())){
 			customer.setIs_Logged_In(true);
 			this.customer=customerSignInCheck;
 			System.out.println("the information that came back from dao is: "+this.customer.getAddress_1());
-			model.setViewName("product");
+			mainPage="product";
 		}
 		else {
-			model.setViewName("login");
+			mainPage="login";
 			model.addObject("Login_Info", "Username or Password not found");
 			customer.setIs_Logged_In(false);
 		}
+		model.addObject("mainpage", mainPage);
 		return model;
 		 
 	}
@@ -68,16 +69,17 @@ public class CustomerController {
 
 	@RequestMapping(value="/signUp",method= RequestMethod.GET)
 	public ModelAndView signUpPage() {
-		ModelAndView model = new ModelAndView("signUp");
+		ModelAndView model = new ModelAndView("Template");
 		model.addObject("signUpPage", "signUp");
 		model.addObject("customer", customer);
+		model.addObject("mainpage","signUp.jsp");
 		return model;		
 	}
 	
 		
 	@RequestMapping(value="/saveCustomer", method= RequestMethod.GET)
 	public ModelAndView saveCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult result) throws ParseException {
-		ModelAndView model = new ModelAndView("viewProfile");
+		ModelAndView model = new ModelAndView("Template");
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		java.util.Date currentDate = new java.util.Date();
@@ -87,14 +89,16 @@ public class CustomerController {
 		System.out.println("The record values are: "+customer.toString());
 		customerDao.save(customer);	
 		this.customer = customer;
+		model.addObject("mainpage", "viewProfile.jsp");
 		return model;
 	}
 	
 	@RequestMapping(value="/viewProfile", method= RequestMethod.GET)
 	public ModelAndView viewProfile() {
-		ModelAndView model = new ModelAndView("memberProfile");
+		ModelAndView model = new ModelAndView("Template");
 		model.addObject("customer", customer);
 		model.addObject("profilePage", "viewProfile");
+		model.addObject("mainpage", "memberProfile.jsp");
 	return model;
 	}
 }

@@ -1,12 +1,5 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.css"/>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/front-awesome.min.css"/>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css"/>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/prettyPhoto.css"/>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/price-range.css"/>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/responsive.css"/>
-<jsp:include page="header.jsp"></jsp:include>
+
 	<h2>${Login_Info}</h2>
 
 	<section id="form">
@@ -53,6 +46,3 @@
 		</div>
 	</section>
 	<!--/form-->
-
-<jsp:include page="footer.jsp"></jsp:include>
-
