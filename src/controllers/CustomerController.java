@@ -52,9 +52,9 @@ public class CustomerController {
 		String mainPage ="";
 		
 		if(customerSignInCheck.getPassword().equals(customer.getPassword())){
-			
-			this.customer=customerSignInCheck;
+		
 			this.customer.setIs_Logged_In(true);
+			this.customer=customerSignInCheck;
 			System.out.println("the information that came back from dao is: "+this.customer.getAddress_1());
 			model.setViewName("redirect:/products");
 		}
@@ -102,6 +102,15 @@ public class CustomerController {
 		model.addObject("profilePage", "viewProfile");
 		model.addObject("mainpage", "memberProfile.jsp");
 	return model;
+	}
+	
+	@RequestMapping(value="/updateProfile", method= RequestMethod.GET)
+	public ModelAndView updateProfile() {
+		ModelAndView model = new ModelAndView("Template");
+		model.addObject("customer", customer);
+		model.addObject("updateProfilePage", "updateProfile");
+		model.addObject("mainpage", "updateProfile.jsp");
+		return model;
 	}
 }
 
