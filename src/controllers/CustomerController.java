@@ -50,14 +50,15 @@ public class CustomerController {
 		ModelAndView model = new ModelAndView("Template");
 		Customer customerSignInCheck = customerDao.signedIn(customer.getEmail());
 		String mainPage ="";
+		
 		if(customerSignInCheck.getPassword().equals(customer.getPassword())){
 			customer.setIs_Logged_In(true);
 			this.customer=customerSignInCheck;
 			System.out.println("the information that came back from dao is: "+this.customer.getAddress_1());
-			mainPage="product";
+			model.setViewName("redirect:/products");
 		}
 		else {
-			mainPage="login";
+			mainPage="login.jsp";
 			model.addObject("Login_Info", "Username or Password not found");
 			customer.setIs_Logged_In(false);
 		}
