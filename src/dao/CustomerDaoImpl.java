@@ -72,12 +72,16 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	@Transactional
-	public List<Customer> signedIn(String email) {
-		List<Customer> customer = null;
+	public Customer signedIn(String email) {
+		List<Customer> customerList = null;
+		Customer customer = null;
 		Session session= this.sessionfactory.getCurrentSession(); 
-		customer = (List<Customer>) session.createQuery("from Customer where email= :email ").setParameter("email", email).list();
-		System.out.println("The information retrieved from the database is: "+customer.get(0).toString());
-		
+		customerList = (List<Customer>) session.createQuery("from Customer where email= :email ").setParameter("email", email).list();
+		if(customerList.size()>0)
+		{
+			System.out.println("The information retrieved from the database is: "+customerList.get(0).toString());
+			customer = customerList.get(0);
+		}
 		return customer;
 	}
 	

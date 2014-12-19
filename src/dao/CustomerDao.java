@@ -12,6 +12,6 @@ public interface CustomerDao {
 	public List<Customer> list();
 	public List<Customer> lookupById(int customerId);
 	public List<Customer> lookupByEmail(String email);
-	public List<Customer> signedIn(String form_email);
+	public Customer signedIn(String form_email);
 
 }
