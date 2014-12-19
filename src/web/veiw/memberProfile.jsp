@@ -10,18 +10,19 @@
 						<thead>
 							<h3>Personal Information</h3>
 						</thead>
-						<tr><h5>Member Since:	&nbsp	${customer.date_Entered}</h5></tr>
+						<tr>
+							<h5>Member Since: &nbsp ${customer.date_Entered}</h5>
+						</tr>
 						<tr>
 							<td>Name:
 							<td>&nbsp
-							<td>${customer.first_Name}&nbsp ${customer.last_Name }
-							</td>
+							<td>${customer.first_Name}&nbsp${customer.last_Name }</td>
 						</tr>
 						<tr></tr>
 						<tr>
 							<td>Address:
 							<td>&nbsp
-							<td>${customer.address_1 }&nbsp${customer.address_2 }</td>
+							<td>${customer.address_1 }&nbsp${customer.address_2}</td>
 						</tr>
 						<tr>
 							<td>
@@ -72,7 +73,9 @@
 							<td>${customer.billing_City },${customer.billing_State}
 								${customer.billing_Postal}, ${customer.billing_Country }</td>
 						</tr>
-
+						<tr>
+							<td><button class="btn btn-default" type="button" href="updateProfile">Update Profile</button></td>
+						</tr>
 
 					</table>
 				</div>
