@@ -1,5 +1,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" 	prefix="form"%>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" 			prefix="c"%>
+<!-- <h1>Name: ${customer.first_Name } logged in:${customer.is_Logged_In }</h1> -->
 <header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
 			<div class="container">
@@ -32,7 +33,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="/products"><img src="resources/images/home/logo.png" alt="" /></a>
+							<a href="${pageContext.request.contextPath}/products"><img src="resources/images/home/logo.png" alt="" /></a>
 						</div>
 						<div class="btn-group pull-right">
 							<div class="btn-group">
@@ -62,13 +63,17 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								
-								<li><a href="${pageContext.request.contextPath}/viewProfile"><i class="fa fa-user"></i> View Profile</a></li>
+								
 								<li><a href="${pageContext.request.contextPath}/finalCheckout">Checkout &raquo;</a></li>
-								<li><a href="${pageContext.request.contextPath}/viewCart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<c:if test="${sessionScope.customer.is_Logged_In }" >
-										<li><a href="${pageContext.request.contextPath}/viewProfile"><i class="fa fa-lock"></i>View Profile</a></li>
+								<li><a href="#ToDo${pageContext.request.contextPath}/viewCart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								
+								<c:if test="${customer.is_Logged_In }">
+								<li><a href="${pageContext.request.contextPath}/viewProfile"><i class="fa fa-user"></i> View Profile</a></li>
 								</c:if>
+							
+								<c:if test="${!customer.is_Logged_In }">
 								<li><a href="${pageContext.request.contextPath}/signIn"><i class="fa fa-lock"></i> Login</a></li>
+								</c:if>
 							</ul>
 						</div>
 					</div>
@@ -90,28 +95,21 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="/products" class="active">Home</a></li>
+								<li><a href="${pageContext.request.contextPath}/products" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="${pageContext.request.contextPath}/products">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li> 
 										<li><a href="${pageContext.request.contextPath}/finalCheckout">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
-										<c:if test="${sessionScope.customer.is_Logged_In }">
+										<li><a href="#ToDo/shoppingCart">Cart</a></li> 
+										<c:if test="${customer.is_Logged_In} ">
 												<li><a href="${pageContext.request.contextPath}/viewProfile">View Profile</a></li> 
 										</c:if>
 										<li><a href="${pageContext.request.contextPath}/signIn">Login</a></li> 
 										<li><a href="${pageContext.request.contextPath}/signUp">Register</a></li>
                                     </ul>
                                 </li> 
-								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
-                                </li> 
-								<li><a href="view/404.jsp">404</a></li>
-								<li><a href="contact-us.html">Contact</a></li>
+								<li><a href="${pageContext.request.contextPath }/404">404</a></li>
+								<li><a href="#Todo/contact">Contact</a></li>
 							</ul>
 						</div>
 					</div>

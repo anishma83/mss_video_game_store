@@ -56,9 +56,7 @@
 						</div>	
 						</div>
 					</div>				
-				<div class="shipping text-center"><!--shipping-->
-					<img src="images/home/shipping.jpg" alt="" />
-				</div><!--/shipping-->				
+							
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
 					<h2 class="title text-center">Features Items</h2>

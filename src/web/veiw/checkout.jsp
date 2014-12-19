@@ -134,6 +134,7 @@
 				</span>
 			</div>
 		</div>
+		<input type="button" onclick="${pageContext.request.contextPath}/thankYou" > 
 	</section>
 	<!--/#cart_items-->
 </div>

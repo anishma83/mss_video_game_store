@@ -1,3 +1,4 @@
+package com.mss.store.videogame.model;
 import java.util.List;
 
 /**

@@ -39,7 +39,7 @@ public class CustomerController {
 		ModelAndView model=new ModelAndView("Template");
 		Customer customer = new Customer();
 		model.addObject("mainpage", "login.jsp");
-		model.addObject("customer", customer);
+		model.addObject("customer",this.customer);
 		return model;
 	}
 	
@@ -52,7 +52,6 @@ public class CustomerController {
 		String mainPage ="";
 		
 		if(customerSignInCheck.getPassword().equals(customer.getPassword())){
-		
 			this.customer.setIs_Logged_In(true);
 			this.customer=customerSignInCheck;
 			System.out.println("the information that came back from dao is: "+this.customer.getAddress_1());
@@ -64,6 +63,7 @@ public class CustomerController {
 			this.customer.setIs_Logged_In(false);
 		}
 		model.addObject("mainpage", mainPage);
+		model.addObject("customer",this.customer);
 		return model;
 		 
 	}
@@ -73,8 +73,8 @@ public class CustomerController {
 	public ModelAndView signUpPage() {
 		ModelAndView model = new ModelAndView("Template");
 		model.addObject("signUpPage", "signUp");
-		model.addObject("customer", customer);
 		model.addObject("mainpage","signUp.jsp");
+		model.addObject("customer",this.customer);
 		return model;		
 	}
 	
@@ -92,24 +92,24 @@ public class CustomerController {
 		customerDao.save(customer);	
 		this.customer = customer;
 		model.addObject("mainpage", "viewProfile.jsp");
+		model.addObject("customer",this.customer);
 		return model;
 	}
 	
 	@RequestMapping(value="/viewProfile", method= RequestMethod.GET)
 	public ModelAndView viewProfile() {
 		ModelAndView model = new ModelAndView("Template");
-		model.addObject("customer", customer);
-		model.addObject("profilePage", "viewProfile");
 		model.addObject("mainpage", "memberProfile.jsp");
+		model.addObject("customer",this.customer);
 	return model;
 	}
 	
 	@RequestMapping(value="/updateProfile", method= RequestMethod.GET)
 	public ModelAndView updateProfile() {
 		ModelAndView model = new ModelAndView("Template");
-		model.addObject("customer", customer);
 		model.addObject("updateProfilePage", "updateProfile");
 		model.addObject("mainpage", "updateProfile.jsp");
+		model.addObject("customer",this.customer);
 		return model;
 	}
 }

@@ -1,4 +1,4 @@
-package com.ms.store.videogame.invoice;
+package com.mss.store.videogame.invoice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +13,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 
-import com.ms.store.videogame.model.Invoice;
-import com.ms.store.videogame.model.Product;
+import com.mss.store.videogame.model.Invoice;
+import com.mss.store.videogame.model.Product;
 
 /**
  * 

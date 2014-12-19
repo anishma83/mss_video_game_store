@@ -7,9 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+//so it can be passed
+import java.io.Serializable;
+
 @Entity
 @Table(name="Product")
-public class Product {
+public class Product implements Comparable<Product>, Serializable{
+	private static final long serialVersionUID = -6027340279914938585L;
+	
 	private int 	product_Id;
 	private String	sku;
 	private String	supplier_Product_Id;
@@ -171,6 +176,23 @@ public class Product {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+	
+	/// needed for shopping cart
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof Product && product_Id == ((Product) o).product_Id;
+	}
+	
+	@Override
+	public int hashCode() {
+		return ((Integer) product_Id).hashCode();
+	}
+	
+	@Override
+	public int compareTo(Product p) {
+		int c = sku.compareTo(p.sku);
+		return (c == 0 ? ((Integer) product_Id).compareTo((Integer) p.product_Id) : c);
 	}
 	
 	

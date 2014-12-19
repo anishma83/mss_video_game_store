@@ -1,4 +1,4 @@
-package com.ms.store.videogame.invoice;
+package com.mss.store.videogame.invoice;
 
 public class AdminLogin {
 

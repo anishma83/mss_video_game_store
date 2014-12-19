@@ -16,7 +16,7 @@
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
 						<h2>Login Admin</h2>
-						<form action="#">
+						<form action="${pageContext.request.contextPath}/">
 							<input type="text" placeholder="Username" />
 							<input type="password" placeholder="Password" />
 							<span>

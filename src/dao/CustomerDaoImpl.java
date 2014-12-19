@@ -28,10 +28,15 @@ public class CustomerDaoImpl implements CustomerDao {
 		this.sessionfactory=sessionfactory;
 	}
 	
+	private Session getCurrentSession() {
+		return sessionfactory.getCurrentSession();
+	}
+
 	@Override
 	@Transactional
 	public void save(Customer customer) {
-		sessionfactory.getCurrentSession().saveOrUpdate(customer);
+		System.out.println(customer.toString());
+		sessionfactory.getCurrentSession().save(customer);
 		
 	}
 
@@ -65,7 +70,6 @@ public class CustomerDaoImpl implements CustomerDao {
 		return customers;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public Customer signedIn(String email) {
@@ -75,6 +79,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		customerList = (List<Customer>) session.createQuery("from Customer where email= :email ").setParameter("email", email).list();
 		if(customerList.size()>0)
 		{
+			System.out.println("The information retrieved from the database is: "+customerList.get(0).toString());
 			customer = customerList.get(0);
 		}
 		return customer;

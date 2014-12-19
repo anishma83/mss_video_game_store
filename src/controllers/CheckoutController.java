@@ -94,7 +94,7 @@ public class CheckoutController {
 		model.addObject("products",products);
 		model.addObject("total",cartTotal+salesTax+shippingCost);
 		
-
+		model.addObject("customer",this.customer);
 		return model;
 		
 	}

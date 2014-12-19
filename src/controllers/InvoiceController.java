@@ -1,4 +1,4 @@
-package com.ms.store.videogame.controllers;
+package com.mss.store.videogame.web.controllers;
 
 
 import java.util.ArrayList;
@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ms.store.videogame.dao.CustomerDao;
-import com.ms.store.videogame.dao.OrderDao;
-import com.ms.store.videogame.dao.OrderDetailDao;
-import com.ms.store.videogame.dao.ProductDao;
-import com.ms.store.videogame.invoice.AutoUpdateDB;
-import com.ms.store.videogame.invoice.EmailConfirmation;
-import com.ms.store.videogame.invoice.ReorderProduct;
-import com.ms.store.videogame.model.Customer;
-import com.ms.store.videogame.model.Invoice;
-import com.ms.store.videogame.model.Order;
-import com.ms.store.videogame.model.OrderDetail;
-import com.ms.store.videogame.model.Product;
+import com.mss.store.videogame.dao.CustomerDao;
+import com.mss.store.videogame.dao.OrderDao;
+import com.mss.store.videogame.dao.OrderDetailDao;
+import com.mss.store.videogame.dao.ProductDao;
+import com.mss.store.videogame.invoice.AutoUpdateDB;
+import com.mss.store.videogame.invoice.EmailConfirmation;
+import com.mss.store.videogame.invoice.ReorderProduct;
+import com.mss.store.videogame.model.Customer;
+import com.mss.store.videogame.model.Invoice;
+import com.mss.store.videogame.model.Order;
+import com.mss.store.videogame.model.OrderDetail;
+import com.mss.store.videogame.model.Product;
 
 
 @Controller
@@ -40,6 +40,8 @@ public class InvoiceController {
 	ProductDao	productDao;
 	@Autowired
 	Customer customer;
+	@Autowired
+	AutoUpdateDB dbUpdater;
 	
 	@RequestMapping("/thankYou")
 	protected ModelAndView confirm(HttpServletRequest request, HttpServletResponse response) throws Exception
@@ -50,38 +52,31 @@ public class InvoiceController {
 		/*
 		 * Customer
 		 */
-		Customer customer = null;
+		
 		if(isLoggedIn)
 		{
-			 customer =(Customer) request.getSession().getAttribute("Customer");
+			 
 		}else
 		{
 			customer = customerDao.lookupById(1).get(0);
 		}
 		model.addObject("customer", customer);
 		
-		
-		/*
-		 * Order
-		 */
-		List<Order> customerOrders = orderDao.lookupByCustomerId(customer.getCustomer_Id());
+		List<Order> customerOrders =
+				orderDao.lookupByCustomerId(customer.getCustomer_Id());
 		Order currentOrder =  new Order();
 		for(Order o:customerOrders)
 		{
-			if(!o.isPaid())
+			if(o.isPaid())
 			{
 				currentOrder=o;
 				break;
 			}
 		}
 		
-		/*
-		 * Order Details
-		 */
 		List<OrderDetail> currentOrderDetails = 
 				orderDetailDao.lookupByOrderId(currentOrder.getOrder_Id());
 		model.addObject("orderDetails", currentOrderDetails);
-		
 		
 		/*
 		 * Products
@@ -96,13 +91,13 @@ public class InvoiceController {
 		/*
 		 * Invoice Operations
 		 */
-		Invoice invoice = new Invoice(customer, currentOrder, currentOrderDetails, products);
-		EmailConfirmation emailConfirm = new EmailConfirmation(invoice.getOrder(), invoice.getCustomer());
-		AutoUpdateDB dbUpdater = new AutoUpdateDB(invoice);
+		Invoice invoice = new Invoice(this.customer, currentOrder, currentOrderDetails, products);
+		//EmailConfirmation emailConfirm = new EmailConfirmation(invoice.getOrder(), invoice.getCustomer());
+		dbUpdater = new AutoUpdateDB(invoice);
 		dbUpdater.run();
 		ReorderProduct reorderProduct = new ReorderProduct(invoice);
 		
-		
+		model.addObject("customer",this.customer);
 		return model;
 		
 	}
@@ -132,6 +127,7 @@ public class InvoiceController {
 			model.addObject("Login_Info", "Username or Password not found");
 		}
 
+		model.addObject("customer",this.customer);
 		return model;
 	}
 	

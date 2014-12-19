@@ -1,15 +1,12 @@
-<beans 	xmlns				=	"http://www.springframework.org/schema/beans"
-		xmlns:tool  		=	"http://www.springframework.org/schema/tool"
-		xmlns:tx			=	"http://www.springframework.org/schema/tx"
-		xmlns:aop			=	"http://www.springframework.org/schema/aop"
-		xmlns:flow			=	"http://www.springframework.org/schema/webflow-config"
-		xmlns:contexnt		=	"http://www.springframework.org/schema/context"
-		xmlns:util			=	"http://www.springframework.org/schema/util"
-		xmlns:mvc			=	"http://www.springframework.org/schema/mvc"
-		xmlns:xsi			=	"http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation 	=	"http://www.springframework.org/schema/beans 
-							 	 http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
-								 httpL//www.springframework.org/schema/tool
+<beans 	xmlns				= "http://www.springframework.org/schema/beans"
+		xmlns:tool			= "http://www.springframework.org/schema/tool" xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:aop			= "http://www.springframework.org/schema/aop" xmlns:flow="http://www.springframework.org/schema/webflow-config"
+		xmlns:contexnt		= "http://www.springframework.org/schema/context"
+		xmlns:util			= "http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:xsi			= "http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation	= "http://www.springframework.org/schema/beans 
+				 			   http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+								 http://www.springframework.org/schema/tool
 								 http://www.springframework.org/schema/tool/spring-tool-4.1.xsd
 								 http://www.springframework.org/schema/tx
 								 http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
@@ -22,170 +19,174 @@
 								 http://www.springframework.org/schema/mvc
 								 http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
 								 http://www.springframework.org/schema/util
-   								 http://www.springframework.org/schema/util/spring-util-4.1.xsd "
->
-					
-<tx:annotation-driven />
-<mvc:annotation-driven />
-<contexnt:component-scan base-package="com.mss.store.videogame.web.controllers"></contexnt:component-scan>
-<contexnt:property-placeholder location="classpath:properties.txt"/>
-<mvc:resources mapping="/resources/**" location="/resources/"/>
+   								 http://www.springframework.org/schema/util/spring-util-4.1.xsd ">
+
+	<tx:annotation-driven />
+	<mvc:annotation-driven />
+	<contexnt:component-scan base-package="com.mss.store.videogame.web.controllers"></contexnt:component-scan>
+	<contexnt:property-placeholder location="classpath:properties.txt" />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 
 	<!-- Maps a logical view name to a physical resource -->
-     <bean id="viewResolver"
-    	class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
-        <property name="prefix">
-            <value>/view/</value>
-        </property>
-        <property name="suffix">
-            <value>.jsp</value>
-        </property>
-    </bean>
-      
-     <bean id = "transactionManager"
-        class = "org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name = "sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-        <property name="hibernateManagedSession" value="false" />
-    </bean>
-    
-<tx:advice id="txAdvice" transaction-manager="transactionManager">
-  <tx:attributes>
-    <tx:method name = "*" 	propagation="REQUIRED"/>
-  </tx:attributes>
-</tx:advice> 
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/view/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+		<property name="exposedContextBeanNames">
+			<list>
+				<value>customer</value>
+			</list>
+		</property>
+	</bean>
 
-    
-    <bean 	id 		= "dataSource"
-			class  	= "org.springframework.jdbc.datasource.DriverManagerDataSource"
-			depends-on="txAdvice">
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+		<property name="hibernateManagedSession" value="false" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		depends-on="txAdvice">
 		<property name="driverClassName" value="com.ibm.db2.jcc.DB2Driver" />
 		<property name="url" value="${database.url}" />
 		<property name="username" value="${database.username}" />
 		<property name="password" value="${database.password}" />
 	</bean>
- 
- 
-<!-- Hibernate 4 SessionFactory Bean definition -->
-<bean 	id				= "hibernate4AnnotatedSessionFactory"
-        class			= "org.springframework.orm.hibernate4.LocalSessionFactoryBean"
-        depends-on		= "dataSource">
-        <property 	
-        		name	= "dataSource" 
-        		ref		= "dataSource" />
-        		
-        <property name	= "annotatedClasses">
-            <list>
-                <value>com.mss.store.videogame.model.Supplier</value>
-                <value>com.mss.store.videogame.model.Shipper</value>
-                <value>com.mss.store.videogame.model.Category</value>
-                <value>com.mss.store.videogame.model.Customer</value>
-                <value>com.mss.store.videogame.model.Product</value>
-                <value>com.mss.store.videogame.model.Order</value>
-                <value>com.mss.store.videogame.model.OrderDetail</value>
-            </list>
-        </property>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.DB2Dialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
-            </props>
-        </property>
-    </bean>
- 				 
- 	   <bean id="CategoryDao" class="com.mss.store.videogame.dao.CategoryDaoImpl" >
-     <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </bean>
-    
-       <bean id="CustomerDao" class="com.mss.store.videogame.dao.CustomerDaoImpl" >
-     <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </bean>
-    
-   
-       <bean id="OrderDao" class="com.mss.store.videogame.dao.OrderDaoImpl" >
-     <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </bean>
 
- 
-       <bean id="OrderDetailDao" class="com.mss.store.videogame.dao.OrderDetailDaoImpl" >
-     <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </bean>
-     <bean id="ProductDao" class="com.mss.store.videogame.dao.ProductDaoImpl" >
-     <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </bean>
-       <bean id="ShipperDao" class="com.mss.store.videogame.dao.ShipperDaoImpl" >
-     <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </bean>
-       <bean id="SupplierDao" class="com.mss.store.videogame.dao.SupplierDaoImpl" >
-     <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </bean>
-    
-    <bean id="cartService" class="com.mss.store.videogame.model.CartServiceImpl" />
-    <bean id="shoppingCart" class="com.mss.store.videogame.model.ShoppingCart" />
-    
-    <bean id="customer" class="com.mss.store.videogame.model.Customer" scope="session">
-    	<aop:scoped-proxy/>
-    </bean>
-    
-  
-    
-    <!-- Spring webflow 2.0 things and such things I added -->
-    
-      <!-- Enables POJO @Controllers (like CartController) -->
-    <bean class=
-"org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+
+	<!-- Hibernate 4 SessionFactory Bean definition -->
+	<bean id="hibernate4AnnotatedSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		depends-on="dataSource">
+		<property name="dataSource" ref="dataSource" />
+
+		<property name="annotatedClasses">
+			<list>
+				<value>com.mss.store.videogame.model.Supplier</value>
+				<value>com.mss.store.videogame.model.Shipper</value>
+				<value>com.mss.store.videogame.model.Category</value>
+				<value>com.mss.store.videogame.model.Customer</value>
+				<value>com.mss.store.videogame.model.Product</value>
+				<value>com.mss.store.videogame.model.Order</value>
+				<value>com.mss.store.videogame.model.OrderDetail</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DB2Dialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="CategoryDao" class="com.mss.store.videogame.dao.CategoryDaoImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+
+	<bean id="CustomerDao" class="com.mss.store.videogame.dao.CustomerDaoImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+
+
+	<bean id="OrderDao" class="com.mss.store.videogame.dao.OrderDaoImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+
+
+	<bean id="OrderDetailDao" class="com.mss.store.videogame.dao.OrderDetailDaoImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="ProductDao" class="com.mss.store.videogame.dao.ProductDaoImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="ShipperDao" class="com.mss.store.videogame.dao.ShipperDaoImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="SupplierDao" class="com.mss.store.videogame.dao.SupplierDaoImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+
+	<bean id="cartService" class="com.mss.store.videogame.model.CartServiceImpl" />
+	<bean id="shoppingCart" class="com.mss.store.videogame.model.ShoppingCart" />
+
+	<bean id="customer" class="com.mss.store.videogame.model.Customer"
+		scope="session">
+		<aop:scoped-proxy />
+	</bean>
+
+
+	<bean id="autoUpdate" class="com.mss.store.videogame.invoice.AutoUpdateDB">
+	</bean>
+
+	<!-- Spring webflow 2.0 things and such things I added -->
+
+	<!-- Enables POJO @Controllers (like CartController) -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 
 	<!-- Maps flow requests from DispatcherServlet to flowController -->
-    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="mappings">
-            <value>
-           		/addToCart.do=flowController
-		        /checkout.do=flowController
-		        /account/login.do=flowController
-                /account/register.do=flowController
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<value>
+				/addToCart.do=flowController
+				/checkout.do=flowController
+				/account/login.do=flowController
+				/account/register.do=flowController
             </value>
-        </property>
-        <property name="alwaysUseFullPath" value="true"/>
-    </bean>
-    
-    
-    
-    <!-- Enables annotated methods on POJO @Controllers (like CartController) -->
-    <bean class=
-"org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
-    
+		</property>
+		<property name="alwaysUseFullPath" value="true" />
+	</bean>
+
+
+
+	<!-- Enables annotated methods on POJO @Controllers (like CartController) -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+
 	<!-- Enables plain Controllers (e.g. FlowController) -->
-    <bean class=
-"org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+	<bean
+		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 
 	<!-- SPRING WEB FLOW STUFF -->
-    
-    <bean id="flowController" class=
-"org.springframework.webflow.mvc.servlet.FlowController">
-        <property name="flowExecutor" ref="flowExecutor"/>
-    </bean>
-    
-    <flow:flow-executor id="flowExecutor" flow-registry="flowRegistry"/>
-    
-    <!-- This creates an XmlFlowRegistryFactory bean -->
-    <flow:flow-registry id="flowRegistry"
-            flow-builder-services="flowBuilderServices">
-            <flow:flow-location path="/WEB-INF/flows/addToCart.xml"/>
-			<flow:flow-location path="/WEB-INF/flows/checkout.xml"/>
-			<flow:flow-location path="/WEB-INF/flows/login.xml"/>
-	        <flow:flow-location path="/WEB-INF/flows/register.xml"/>
-    </flow:flow-registry>
-    
-    <flow:flow-builder-services id="flowBuilderServices"
-            view-factory-creator="viewFactoryCreator"/>
-    
-    <bean id="viewFactoryCreator" class=
-"org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
-        <property name="viewResolvers">
-            <list>
-                <ref bean="viewResolver"/>
-            </list>
-        </property>
-    </bean>
+
+	<bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">
+		<property name="flowExecutor" ref="flowExecutor" />
+	</bean>
+
+	<flow:flow-executor id="flowExecutor" flow-registry="flowRegistry" />
+
+	<!-- This creates an XmlFlowRegistryFactory bean -->
+	<flow:flow-registry id="flowRegistry"
+		flow-builder-services="flowBuilderServices">
+		<flow:flow-location path="/WEB-INF/flows/addToCart.xml" />
+		<flow:flow-location path="/WEB-INF/flows/checkout.xml" />
+		<flow:flow-location path="/WEB-INF/flows/login.xml" />
+		<flow:flow-location path="/WEB-INF/flows/register.xml" />
+	</flow:flow-registry>
+
+	<flow:flow-builder-services id="flowBuilderServices"
+		view-factory-creator="viewFactoryCreator" />
+
+	<bean id="viewFactoryCreator"
+		class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+		<property name="viewResolvers">
+			<list>
+				<ref bean="viewResolver" />
+			</list>
+		</property>
+	</bean>
 
 </beans>

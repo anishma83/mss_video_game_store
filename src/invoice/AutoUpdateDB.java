@@ -1,4 +1,4 @@
-package com.ms.store.videogame.invoice;
+package com.mss.store.videogame.invoice;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -14,12 +14,15 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 
-import com.ms.store.videogame.model.Customer;
-import com.ms.store.videogame.model.Invoice;
-import com.ms.store.videogame.model.Order;
-import com.ms.store.videogame.model.OrderDetail;
-import com.ms.store.videogame.model.Product;
+import com.mss.store.videogame.dao.*;
+import com.mss.store.videogame.model.Customer;
+import com.mss.store.videogame.model.Invoice;
+import com.mss.store.videogame.model.Order;
+import com.mss.store.videogame.model.OrderDetail;
+import com.mss.store.videogame.model.Product;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 /**
  * 
  * @author Anton Franklin
@@ -29,7 +32,22 @@ public class AutoUpdateDB {
 	
 	private static SessionFactory factory;
 	private static ServiceRegistry serviceRegistry;
+	@Autowired
+	CustomerDao customerDao;
+	@Autowired 
+	OrderDao	orderDao;
+	@Autowired
+	OrderDetailDao orderDetailDao;
+	@Autowired
+	ProductDao	productDao;
+	
 	private Invoice invoice;
+	
+	public AutoUpdateDB()
+	{
+		
+	}
+	
 	
 	/**
 	 * Creates new AutoUpdateDB that will auto update the DB 
@@ -37,24 +55,6 @@ public class AutoUpdateDB {
 	 */
 	public AutoUpdateDB(Invoice invoice)
 	{
-		try{
-		Configuration configuration = new Configuration();
-	    configuration.configure();
-	    
-	    configuration.addAnnotatedClass(Customer.class);
-	    configuration.addAnnotatedClass(Order.class);
-	    configuration.addAnnotatedClass(OrderDetail.class);
-	    configuration.addAnnotatedClass(Product.class);
-	    
-	    serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-	    
-	    factory = configuration.buildSessionFactory(serviceRegistry);
-	         
-	    }catch (Throwable ex) { 
-	         System.err.println("Failed to create sessionFactory object." + ex);
-	         throw new ExceptionInInitializerError(ex); 
-	    }
-		
 		this.invoice = invoice;
 	}
 	
@@ -76,18 +76,7 @@ public class AutoUpdateDB {
 	 * @param cus - Customer to be updated
 	 */
 	   public void updateCustomer(Customer cus){
-	      Session session = factory.openSession();
-	      Transaction tx = null;
-	      try{
-	         tx = session.beginTransaction();
-	         session.update(cus); 
-	         tx.commit();
-	      }catch (HibernateException e) {
-	         if (tx!=null) tx.rollback();
-	         e.printStackTrace(); 
-	      }finally {
-	         session.close(); 
-	      }
+		   customerDao.save(cus);
 	   }
 	   
 	   
@@ -116,30 +105,7 @@ public class AutoUpdateDB {
 	    * @param order - the order that has been processed
 	    */
 	   public void updateOrder(Order order){
-	      Session session = factory.openSession();
-	      Transaction tx = null;
-	      
-	      order.setTransaction_Status("complete");
-	      order.setFulfilled(true);
-	      order.setPaid(true);
-	      
-	      
-	      java.util.Date utilDate = new java.util.Date();
-	     
-	      Date date = new java.sql.Date(utilDate.getTime());
-	      
-	      order.setPayment_Date(date);
-	      
-	      try{
-	         tx = session.beginTransaction();
-	         session.update(order); 
-	         tx.commit();
-	      }catch (HibernateException e) {
-	         if (tx!=null) tx.rollback();
-	         e.printStackTrace(); 
-	      }finally {
-	         session.close(); 
-	      }
+	      orderDao.save(order);
 	   }
 	   
 	   	   
@@ -169,35 +135,8 @@ public class AutoUpdateDB {
 	    * @param details - list of order details for processed order
 	    */
 	   public void updateOrderDetail(List<OrderDetail> details){
-	      Session session = factory.openSession();
-	      Transaction tx = null;
-	      
-	      try{
-	    	  tx = session.beginTransaction();
-	    	  for(int i=0; i<details.size(); i++)
-		      {
-		    	  details.get(i).setFulfilled(true);
-		    	  
-		    	  /*Calculates the beginning shipping process*/
-		    	  java.util.Date dt = new java.util.Date();
-		    	  Calendar c = Calendar.getInstance(); 
-		    	  c.setTime(dt); 
-		    	  c.add(Calendar.DATE, 1);
-		    	  dt = c.getTime();
-		    	  
-		    	  Date date = new java.sql.Date(dt.getTime());
-		    	  
-		    	  details.get(i).setShip_Date(date);
-		    	  session.update(details.get(i));
-		    	  tx.commit();
-		      }
-	      
-	      }catch (HibernateException e) {
-	         if (tx!=null) tx.rollback();
-	         e.printStackTrace(); 
-	      }finally {
-	         session.close(); 
-	      }
+		   for(OrderDetail d:details)
+			   orderDetailDao.save(d);
 	   }
 	   
 	   
@@ -228,33 +167,32 @@ public class AutoUpdateDB {
 	    * @param details - the list of order details that coincide with the order
 	    */
 	   public void updateProduct(List<Product> products, List<OrderDetail> details){
-	      Session session = factory.openSession();
-	      Transaction tx = null;
-	      try{
-	         tx = session.beginTransaction();
-	         for(int i=0; i<products.size(); i++) 
-	         {
-	        	 for(int j=0; j<details.size(); j++)
-	        	 {
-	        		 /*This will remove the orders products from the DB products number of items*/
-	        		 if(details.get(j).getProduct_Id() == products.get(i).getProduct_Id())
-	        		 {
-	        			int numItems =  products.get(i).getUnits_In_Stock();
-	        			numItems = numItems - details.get(j).getQuantity();
-	        			products.get(i).setUnits_In_Stock(numItems);
-	        		 }
-	        	 }
-	        	 
-	        	 session.update(products.get(i)); 
-		         tx.commit(); 
-	         }
-	         
-	      }catch (HibernateException e) {
-	         if (tx!=null) tx.rollback();
-	         e.printStackTrace(); 
-	      }finally {
-	         session.close(); 
-	      }
+		   
+		   for(OrderDetail detail:details)
+		   {
+			   int index = searchForProductId(products, detail);
+			   Product product = products.get(index);
+			   product.setUnits_In_Stock(product.getUnits_In_Stock()-detail.getQuantity());
+			   productDao.save(product);
+		   }
+		   
+	   }
+	   
+	   private int searchForProductId(List<Product> products,OrderDetail detail)
+	   {
+		   int index=-1;
+		   
+		   for(int i=0;i<products.size();i++)
+		   {
+			   Product p=products.get(i);
+			   if(p.getProduct_Id()==detail.getProduct_Id())
+			   {
+				   index=i;
+				   break;
+			   }
+		   }
+		   
+		   return index;
 	   }
 	   
 	   

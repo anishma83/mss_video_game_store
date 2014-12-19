@@ -1,4 +1,4 @@
-package com.ms.store.videogame.invoice;
+package com.mss.store.videogame.invoice;
 
 import java.util.Properties;
 
@@ -10,8 +10,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.ms.store.videogame.model.Customer;
-import com.ms.store.videogame.model.Order;
+import com.mss.store.videogame.model.Customer;
+import com.mss.store.videogame.model.Order;
 
 public class EmailConfirmation {
 	

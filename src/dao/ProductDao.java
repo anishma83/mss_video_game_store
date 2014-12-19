@@ -14,5 +14,4 @@ public interface ProductDao {
 	public List<Product> lookupBySupplierId(int supplierId);
 	public List<Product> lookupByName(String name);
 	public List<Product> search(String searchCol,String searchValue);
-	public List<Product> lookupByPriceRange(int low,int high);
 }
