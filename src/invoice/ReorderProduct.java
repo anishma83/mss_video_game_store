@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
@@ -49,15 +50,30 @@ public class ReorderProduct {
 	 */
 	public void emailAdmin(List<Product> reorderList)
 	{
+		final String username = "rbjohnson731@gmail.com";
+		final String password = "1songoku";
+			
 		 Properties props = new Properties();
-		 props.setProperty("mail.smtp.host", "localhost");
-	     Session session = Session.getDefaultInstance(props, null);
+		 props.put("mail.smtp.auth", "true");
+		 props.put("mail.smtp.starttls.enable", "true");
+		 props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+		 props.put("mail.smtp.host", "smtp.gmail.com"); //This is the smtp server address
+		 props.put("mail.smtp.port", "587"); //This is the port for the smtp server
+		 
+	     Session session = Session.getDefaultInstance(props, 
+	    		 	new javax.mail.Authenticator(){
+	    	 
+	    	 			protected PasswordAuthentication getPasswordAuthentication(){
+	    	 				return new PasswordAuthentication(username,password); 
+	    	 			}
+	     });
+	     
 	     String list = "";
-
+	     
 	     try {
 	    	 Message msg = new MimeMessage(session);
-	    	 msg.setFrom(new InternetAddress("support@miraclesoft.com"));
-	    	 msg.setRecipients(Message.RecipientType.TO, new InternetAddress[]{new InternetAddress("kbissell@miraclesoft.com")});
+	    	 msg.setFrom(new InternetAddress(username));
+	    	 msg.setRecipients(Message.RecipientType.TO, new InternetAddress[]{new InternetAddress(username)});
 	    	 msg.setSubject("Reorder Products Alert");
 	    	 
 	    	 for(int i=0; i<reorderList.size(); i++)
