@@ -1,0 +1,3 @@
+database.url=jdbc:db2://192.168.1.109:50000/J2EEDB
+database.username=db2admin
+database.password=db2admin
