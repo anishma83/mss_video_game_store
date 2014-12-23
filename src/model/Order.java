@@ -1,6 +1,14 @@
 package com.mss.store.videogame.model;
 
 import java.sql.Date;
+import java.util.List;
+
+
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,30 +19,42 @@ import javax.persistence.Id;
 @Table(name="Orders")
 @Entity
 public class Order {
-	private int		order_Id;
-	private int		customer_Id;
-	private Date	order_Date;
-	private Date	ship_Date;
-	private int		shipper_Id;
-	private double	freight;
-	private double	sales_Tax;
-	private String	order_Timestamp;
-	private String	transaction_Status;
-	private String	error_Log;
-	private String	error_Message;
-	private boolean	fulfilled;
-	private boolean	deleted;
-	private boolean paid;
-	private Date	payment_Date;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="OrderId")			private int		order_Id;
+	@Column(name="CustomerId")		private int		customer_Id;
+	@Column(name="OrderDate")		private Date	order_Date;	
+	@Column(name="ShipDate")		private Date	ship_Date;
+	@Column(name="shipperId")		private int		shipper_Id;
+	@Column(name="Freight")			private double	freight;
+	@Column(name="SalesTax")		private double	sales_Tax;
+	@Column(name="OrderTimestamp")	private String	order_Timestamp;
+	@Column(name="TransStatus")		private String	transaction_Status;
+	@Column(name="ErrLoc")			private String	error_Log;
+	@Column(name="ErrMsg")			private String	error_Message;
+	@Column(name="Fulfilled")		private boolean	fulfilled;
+	@Column(name="Deleted")			private boolean	deleted;
+	@Column(name="Paid")			private boolean paid;
+	@Column(name="PaymentDate")		private Date	payment_Date;
 	
+	@ManyToMany(targetEntity=OrderDetail.class,fetch=FetchType.EAGER,mappedBy="order_Id")
+	List<OrderDetail> orderDetails;
+	
+	
+	public List<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(List<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
+	}
+
 	public Order()
 	{
 	
 	}
 
-	@Id
-	@Column(name="OrderId")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	public int getOrder_Id() {
 		return order_Id;
 	}
@@ -44,7 +64,7 @@ public class Order {
 	}
 
 	
-	@Column(name="CustomerId")
+	
 	public int getCustomer_Id() {
 		return customer_Id;
 	}
@@ -54,7 +74,7 @@ public class Order {
 	}
 
 	
-	@Column(name="OrderDate")
+	
 	public Date getOrder_Date() {
 		return order_Date;
 	}
@@ -64,7 +84,7 @@ public class Order {
 	}
 
 	
-	@Column(name="ShipDate")
+	
 	public Date getShip_Date() {
 		return ship_Date;
 	}
@@ -74,7 +94,7 @@ public class Order {
 	}
 
 	
-	@Column(name="shipperId")
+	
 	public int getShipper_Id() {
 		return shipper_Id;
 	}
@@ -84,7 +104,7 @@ public class Order {
 	}
 
 	
-	@Column(name="Freight")
+	
 	public double getFreight() {
 		return freight;
 	}
@@ -94,7 +114,7 @@ public class Order {
 	}
 
 	
-	@Column(name="SalesTax")
+	
 	public double getSales_Tax() {
 		return sales_Tax;
 	}
@@ -104,7 +124,7 @@ public class Order {
 	}
 
 	
-	@Column(name="OrderTimestamp")
+	
 	public String getOrder_Timestamp() {
 		return order_Timestamp;
 	}
@@ -114,7 +134,7 @@ public class Order {
 	}
 
 	
-	@Column(name="TransStatus")
+
 	public String getTransaction_Status() {
 		return transaction_Status;
 	}
@@ -124,7 +144,7 @@ public class Order {
 	}
 
 	
-	@Column(name="ErrLoc")
+	
 	public String getError_Log() {
 		return error_Log;
 	}
@@ -134,7 +154,7 @@ public class Order {
 	}
 
 	
-	@Column(name="ErrMsg")
+	
 	public String getError_Message() {
 		return error_Message;
 	}
@@ -144,7 +164,7 @@ public class Order {
 	}
 
 	
-	@Column(name="Fulfilled")
+	
 	public boolean isFulfilled() {
 		return fulfilled;
 	}
@@ -153,7 +173,7 @@ public class Order {
 		this.fulfilled = fulfilled;
 	}
 
-	@Column(name="Deleted")
+	
 	public boolean isDeleted() {
 		return deleted;
 	}
@@ -162,7 +182,7 @@ public class Order {
 		this.deleted = deleted;
 	}
 
-	@Column(name="Paid")
+	
 	public boolean isPaid() {
 		return paid;
 	}
@@ -172,7 +192,7 @@ public class Order {
 	}
 
 	
-	@Column(name="PaymentDate")
+	
 	public Date getPayment_Date() {
 		return payment_Date;
 	}

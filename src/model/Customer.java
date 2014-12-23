@@ -1,6 +1,12 @@
 package com.mss.store.videogame.model;
 
 import java.sql.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,51 +19,56 @@ import javax.persistence.Transient;
 @Entity
 public class Customer {
 	
-	private	int		customer_Id;
-	private String	first_Name;
-	private String	last_Name;
-	private String	address_1;
-	private String	address_2;
-	private String	city;
-	private String	us_State;
-	private String	postal;
-	private String	country;
-	private String	phone;
-	private String	email;
-	private String	password;
-	private String	credit_Card;
-	private String 	credit_Card_Id;
-	private String	credit_Expiration_Month;
-	private String	credit_Expiration_Year;
-	private String	billing_Address;
-	private String	billing_Address_1;
-	private String	billing_City;
-	private String	billing_State;
-	private String	billing_Postal;
-	private String	billing_Country;
-	private Date	date_Entered;
-	private String	member;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="CustomerId")		private	int		customer_Id;
+	@Column(name="FirstName")		private String	first_Name;
+	@Column(name="LastName")		private String	last_Name;
+	@Column(name="Address1")		private String	address_1;
+	@Column(name="Address2")		private String	address_2;
+	@Column(name="City")			private String	city;
+	@Column(name="UsState")			private String	us_State;
+	@Column(name="Postal")			private String	postal;
+	@Column(name="Country")			private String	country;
+	@Column(name="Phone")			private String	phone;
+	@Column(name="Email")			private String	email;
+	@Column(name="Password")		private String	password;
+	@Column(name="CreditCard")		private String	credit_Card;
+	@Column(name="CreditCardId")	private String 	credit_Card_Id;
+	@Column(name="CreditExMo")		private String	credit_Expiration_Month;
+	@Column(name="CeditExYr")		private String	credit_Expiration_Year;
+	@Column(name="BillingAddress")	private String	billing_Address;
+	@Column(name="BillingAddress2")	private String	billing_Address_1;
+	@Column(name="BillingCity")		private String	billing_City;
+	@Column(name="BillingState")	private String	billing_State;
+	@Column(name="BillingPostal")	private String	billing_Postal;
+	@Column(name="BillingCountry")	private String	billing_Country;
+	@Column(name="DateEntered")		private Date	date_Entered;
+	@Column(name="Member")			private String	member;
+	@Transient 						private boolean is_Logged_In;
+	@ManyToMany(fetch=FetchType.EAGER,targetEntity=Order.class,mappedBy ="customer_Id" )
+									private List<Order> orders;
 	
-	@Transient private boolean is_Logged_In;
-	
-	public Customer()
-	{
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public Customer() {
 		is_Logged_In = false;
 	}
 
-	@Id
-	@Column(name="CustomerId")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getCustomer_Id() {
 		return customer_Id;
 	}
-	
+
 	public void setCustomer_Id(int customer_Id) {
 		this.customer_Id = customer_Id;
 	}
 
-	
-	@Column(name="FirstName")
 	public String getFirst_Name() {
 		return first_Name;
 	}
@@ -66,8 +77,6 @@ public class Customer {
 		this.first_Name = first_Name;
 	}
 
-	
-	@Column(name="LastName")
 	public String getLast_Name() {
 		return last_Name;
 	}
@@ -76,8 +85,6 @@ public class Customer {
 		this.last_Name = last_Name;
 	}
 
-	
-	@Column(name="Address1")
 	public String getAddress_1() {
 		return address_1;
 	}
@@ -86,8 +93,6 @@ public class Customer {
 		this.address_1 = address_1;
 	}
 
-	
-	@Column(name="Address2")
 	public String getAddress_2() {
 		return address_2;
 	}
@@ -96,8 +101,6 @@ public class Customer {
 		this.address_2 = address_2;
 	}
 
-	
-	@Column(name="City")
 	public String getCity() {
 		return city;
 	}
@@ -106,6 +109,7 @@ public class Customer {
 	public boolean isIs_Logged_In() {
 		return is_Logged_In;
 	}
+
 	@Transient
 	public void setIs_Logged_In(boolean is_Logged_In) {
 		this.is_Logged_In = is_Logged_In;
@@ -115,8 +119,6 @@ public class Customer {
 		this.city = city;
 	}
 
-	
-	@Column(name="UsState")
 	public String getUs_State() {
 		return us_State;
 	}
@@ -124,9 +126,7 @@ public class Customer {
 	public void setUs_State(String us_State) {
 		this.us_State = us_State;
 	}
-	
-	
-	@Column(name="Postal")
+
 	public String getPostal() {
 		return postal;
 	}
@@ -135,8 +135,6 @@ public class Customer {
 		this.postal = postal;
 	}
 
-	
-	@Column(name="Country")
 	public String getCountry() {
 		return country;
 	}
@@ -145,8 +143,6 @@ public class Customer {
 		this.country = country;
 	}
 
-	
-	@Column(name="Phone")
 	public String getPhone() {
 		return phone;
 	}
@@ -155,8 +151,6 @@ public class Customer {
 		this.phone = phone;
 	}
 
-	
-	@Column(name="Email")
 	public String getEmail() {
 		return email;
 	}
@@ -165,8 +159,6 @@ public class Customer {
 		this.email = email;
 	}
 
-	
-	@Column(name="Password")
 	public String getPassword() {
 		return password;
 	}
@@ -175,8 +167,6 @@ public class Customer {
 		this.password = password;
 	}
 
-	
-	@Column(name="CreditCard")
 	public String getCredit_Card() {
 		return credit_Card;
 	}
@@ -185,8 +175,6 @@ public class Customer {
 		this.credit_Card = credit_Card;
 	}
 
-	
-	@Column(name="CreditCardId")
 	public String getCredit_Card_Id() {
 		return credit_Card_Id;
 	}
@@ -195,8 +183,6 @@ public class Customer {
 		this.credit_Card_Id = credit_Card_Id;
 	}
 
-	
-	@Column(name="CreditExMo")
 	public String getCredit_Expiration_Month() {
 		return credit_Expiration_Month;
 	}
@@ -205,8 +191,6 @@ public class Customer {
 		this.credit_Expiration_Month = credit_Expiration_Month;
 	}
 
-	
-	@Column(name="CeditExYr")
 	public String getCredit_Expiration_Year() {
 		return credit_Expiration_Year;
 	}
@@ -215,8 +199,6 @@ public class Customer {
 		this.credit_Expiration_Year = credit_Expiration_Year;
 	}
 
-	
-	@Column(name="BillingAddress")
 	public String getBilling_Address() {
 		return billing_Address;
 	}
@@ -225,8 +207,6 @@ public class Customer {
 		this.billing_Address = billing_Address;
 	}
 
-	
-	@Column(name="BillingAddress2")
 	public String getBilling_Address_1() {
 		return billing_Address_1;
 	}
@@ -235,8 +215,6 @@ public class Customer {
 		this.billing_Address_1 = billing_Address_1;
 	}
 
-	
-	@Column(name="BillingCity")
 	public String getBilling_City() {
 		return billing_City;
 	}
@@ -245,8 +223,6 @@ public class Customer {
 		this.billing_City = billing_City;
 	}
 
-	
-	@Column(name="BillingState")
 	public String getBilling_State() {
 		return billing_State;
 	}
@@ -255,8 +231,6 @@ public class Customer {
 		this.billing_State = billing_State;
 	}
 
-	
-	@Column(name="BillingPostal")
 	public String getBilling_Postal() {
 		return billing_Postal;
 	}
@@ -265,8 +239,6 @@ public class Customer {
 		this.billing_Postal = billing_Postal;
 	}
 
-	
-	@Column(name="BillingCountry")
 	public String getBilling_Country() {
 		return billing_Country;
 	}
@@ -275,8 +247,6 @@ public class Customer {
 		this.billing_Country = billing_Country;
 	}
 
-	
-	@Column(name="DateEntered")
 	public Date getDate_Entered() {
 		return date_Entered;
 	}
@@ -285,8 +255,6 @@ public class Customer {
 		this.date_Entered = date_Entered;
 	}
 
-	
-	@Column(name="Member")
 	public String getMember() {
 		return member;
 	}
@@ -294,6 +262,5 @@ public class Customer {
 	public void setMember(String member) {
 		this.member = member;
 	}
-	
-	
+
 }

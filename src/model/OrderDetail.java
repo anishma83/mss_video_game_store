@@ -1,6 +1,9 @@
 package com.mss.store.videogame.model;
 
 import java.sql.Date;
+
+
+import javax.persistence.*;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,29 +15,46 @@ import javax.persistence.Id;
 @Entity
 public class OrderDetail 
 {
-	private int 	order_Detail_Id;
-	private int		order_Id;
-	private int		product_Id;
-	private double	price;
-	private int		quantity;
-	private double	total;
-	private boolean	fulfilled;
-	private Date	bill_Date;
-	private Date	ship_Date;
-	private int		shipper_Id;
-	private double	freight;
-	private double 	sales_Tax;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="OrderDetailId")	private int 	order_Detail_Id;
+	@Column(name="OrderId")			private int		order_Id;
+	@Column(name="ProductId")		private int		product_Id;
+	@Column(name="Price")			private double	price;
+	@Column(name="Quantity")		private int		quantity;
+	@Column(name="Total")			private double	total;
+	@Column(name="Fulfilled")		private boolean	fulfilled;
+	@Column(name="BillDate")		private Date	bill_Date;
+	@Column(name="ShipDate")		private Date	ship_Date;
+	@Column(name="ShipperId")		private int		shipper_Id;
+	@Column(name="Freight")			private double	freight;
+	@Column(name="SalesTax")		private double 	sales_Tax;
+	
+	@ManyToOne( fetch=FetchType.EAGER, targetEntity=Product.class)
+	@JoinColumn(name="productId")
+	private Product product;
 	
 	
+	
+	public Product getProduct() {
+		return product;
+	}
+
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+
 	public OrderDetail()
 	{
 		
 	}
 
 
-	@Id
-	@Column(name="OrderDetailId")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
+
 	public int getOrder_Detail_Id() {
 		return order_Detail_Id;
 	}
@@ -46,7 +66,7 @@ public class OrderDetail
 
 	
 	
-	@Column(name="OrderId")
+	
 	public int getOrder_Id() {
 		return order_Id;
 	}
@@ -58,7 +78,7 @@ public class OrderDetail
 
 
 	
-	@Column(name="ProductId")
+	
 	public int getProduct_Id() {
 		return product_Id;
 	}
@@ -69,7 +89,7 @@ public class OrderDetail
 	}
 
 
-	@Column(name="Price")
+
 	public double getPrice() {
 		return price;
 	}
@@ -80,7 +100,7 @@ public class OrderDetail
 	}
 
 
-	@Column(name="Quantity")
+	
 	public int getQuantity() {
 		return quantity;
 	}
@@ -91,7 +111,7 @@ public class OrderDetail
 	}
 
 
-	@Column(name="Total")
+	
 	public double getTotal() {
 		return total;
 	}
@@ -102,7 +122,7 @@ public class OrderDetail
 	}
 
 
-	@Column(name="Fulfilled")
+	
 	public boolean isFulfilled() {
 		return fulfilled;
 	}
@@ -113,7 +133,7 @@ public class OrderDetail
 	}
 
 
-	@Column(name="BillDate")
+	
 	public Date getBill_Date() {
 		return bill_Date;
 	}
@@ -124,7 +144,7 @@ public class OrderDetail
 	}
 
 
-	@Column(name="ShipDate")
+	
 	public Date getShip_Date() {
 		return ship_Date;
 	}
@@ -135,7 +155,7 @@ public class OrderDetail
 	}
 
 
-	@Column(name="ShipperId")
+	
 	public int getShipper_Id() {
 		return shipper_Id;
 	}
@@ -146,7 +166,7 @@ public class OrderDetail
 	}
 
 
-	@Column(name="Freight")
+	
 	public double getFreight() {
 		return freight;
 	}
@@ -157,7 +177,7 @@ public class OrderDetail
 	}
 
 
-	@Column(name="SalesTax")
+	
 	public double getSales_Tax() {
 		return sales_Tax;
 	}
