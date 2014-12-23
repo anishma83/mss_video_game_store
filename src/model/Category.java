@@ -8,9 +8,11 @@ import javax.persistence.Id;
 @Table(name="CATEGORY")
 @Entity
 public class Category {
-	private int 	category_Id;
-	private String 	name;
-	private String	description;
+	
+	@Id
+	@Column(name="CATEGORYID")	private int 	category_Id;
+	@Column(name="NAME")		private String 	name;
+	@Column(name="DESCRIPTION")	private String	description;
 	
 	
 	public Category() {
@@ -18,8 +20,7 @@ public class Category {
 		// TODO Auto-generated constructor stub
 	}
 	
-		@Id
-		@Column(name="CATEGORYID")
+	
 		
 	public int getCategory_Id() {
 		return category_Id;
@@ -28,7 +29,7 @@ public class Category {
 		this.category_Id = category_Id;
 	}
 	
-	@Column(name="NAME")
+	
 	public String getName() {
 		return name;
 	}
@@ -36,7 +37,7 @@ public class Category {
 		this.name = name;
 	}
 	
-	@Column(name="DESCRIPTION")
+	
 	public String getDescription() {
 		return description;
 	}

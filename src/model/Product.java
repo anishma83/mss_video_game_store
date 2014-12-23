@@ -1,5 +1,9 @@
 package com.mss.store.videogame.model;
 
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,6 +34,29 @@ public class Product implements Comparable<Product>, Serializable{
 	@Column(name="ProductAvailability")	private String	product_Availability;
 	@Column(name="Image")				private String	image;
 	@Column(name="Notes")				private String	notes;
+	@ManyToOne(targetEntity=Category.class)
+	@JoinColumn(name="categoryId")
+										private Category category;
+	@ManyToOne(targetEntity=Supplier.class)
+	@JoinColumn(name="supplierId")
+										private Supplier supplier;
+	
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
 
 	public Product() {
 

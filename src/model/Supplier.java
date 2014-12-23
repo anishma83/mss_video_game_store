@@ -10,33 +10,34 @@ import javax.persistence.Id;
 @Entity
 @Table(name="Suppliers")
 public class Supplier{
-	private int 	supplier_Id;
-	private String 	company_Name;
-	private String 	contact_Frist_Name;
-	private String 	contact_Last_Name;
-	private String 	contact_Title;
-	private String 	address_Line_1;
-	private String 	address_Line_2;
-	private String	city;
-	private String	us_State;
-	private String	postal;
-	private String	country;
-	private String	phone;
-	private String	email;
-	private String	website;
-	private String	current_Order;
-	private String 	customer_Id;
-	private String	logo;
-	private String 	notes;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="SupplierId")				private int 	supplier_Id;
+	@Column(name="CompanyName")				private String 	company_Name;
+	@Column(name="ContactFName")			private String 	contact_Frist_Name;
+	@Column(name="ContactLName")			private String 	contact_Last_Name;
+	@Column(name="ContactTitle")			private String 	contact_Title;
+	@Column(name="AddressLine1")			private String 	address_Line_1;
+	@Column(name="AddressLine2")			private String 	address_Line_2;
+	@Column(name="City")					private String	city;
+	@Column(name="UsState")					private String	us_State;
+	@Column(name="Postal")					private String	postal;
+	@Column(name="Country")					private String	country;
+	@Column(name="Phone")					private String	phone;
+	@Column(name="Email")					private String	email;
+	@Column(name="WebSite")					private String	website;
+	@Column(name="CurrentOrder")			private String	current_Order;
+	@Column(name="CustomerId")				private String 	customer_Id;
+	@Column(name="Logo")					private String	logo;
+	@Column(name="Notes")					private String 	notes;
 	
 	public Supplier()
 	{
 		
 	}
 
-	@Id
-	@Column(name="SupplierId")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	public int getSupplier_Id() {
 		return supplier_Id;
 	}
@@ -45,7 +46,7 @@ public class Supplier{
 		this.supplier_Id = supplier_id;
 	}
 
-	@Column(name="CompanyName")
+	
 	public String getCompany_Name() {
 		return company_Name;
 	}
@@ -55,7 +56,7 @@ public class Supplier{
 	}
 
 	
-	@Column(name="ContactFName")
+	
 	public String getContact_Frist_Name() {
 		return contact_Frist_Name;
 	}
@@ -64,7 +65,7 @@ public class Supplier{
 		this.contact_Frist_Name = contact_Frist_Name;
 	}
 
-	@Column(name="ContactLName")
+	
 	public String getContact_Last_Name() {
 		return contact_Last_Name;
 	}
@@ -73,7 +74,7 @@ public class Supplier{
 		this.contact_Last_Name = contact_Last_Name;
 	}
 
-	@Column(name="ContactTitle")
+	
 	public String getContact_Title() {
 		return contact_Title;
 	}
@@ -83,7 +84,7 @@ public class Supplier{
 	}
 
 	
-	@Column(name="AddressLine1")
+	
 	public String getAddress_Line_1() {
 		return address_Line_1;
 	}
@@ -92,7 +93,7 @@ public class Supplier{
 		this.address_Line_1 = address_Line_1;
 	}
 
-	@Column(name="AddressLine2")
+	
 	public String getAddress_Line_2() {
 		return address_Line_2;
 	}
@@ -101,7 +102,7 @@ public class Supplier{
 		this.address_Line_2 = address_Line_2;
 	}
 
-	@Column(name="City")
+	
 	public String getCity() {
 		return city;
 	}
@@ -111,7 +112,7 @@ public class Supplier{
 	}
 	
 	
-	@Column(name="UsState")
+	
 	public String getUs_State() {
 		return us_State;
 	}
@@ -121,7 +122,7 @@ public class Supplier{
 	}
 
 	
-	@Column(name="Postal")
+
 	public String getPostal() {
 		return postal;
 	}
@@ -131,7 +132,6 @@ public class Supplier{
 	}
 
 	
-	@Column(name="Country")
 	public String getCountry() {
 		return country;
 	}
@@ -141,7 +141,7 @@ public class Supplier{
 	}
 
 	
-	@Column(name="Phone")
+	
 	public String getPhone() {
 		return phone;
 	}
@@ -151,7 +151,7 @@ public class Supplier{
 	}
 
 	
-	@Column(name="Email")
+	
 	public String getEmail() {
 		return email;
 	}
@@ -161,7 +161,7 @@ public class Supplier{
 	}
 
 	
-	@Column(name="WebSite")
+	
 	public String getWebsite() {
 		return website;
 	}
@@ -171,7 +171,7 @@ public class Supplier{
 	}
 
 	
-	@Column(name="CurrentOrder")
+	
 	public String getCurrent_Order() {
 		return current_Order;
 	}
@@ -181,7 +181,7 @@ public class Supplier{
 	}
 
 	
-	@Column(name="CustomerId")
+	
 	public String getCustomer_Id() {
 		return customer_Id;
 	}
@@ -191,7 +191,7 @@ public class Supplier{
 	}
 
 	
-	@Column(name="Logo")
+	
 	public String getLogo() {
 		return logo;
 	}
@@ -201,7 +201,7 @@ public class Supplier{
 	}
 	
 	
-	@Column(name="Notes")
+	
 	public String getNotes() {
 		return notes;
 	}
