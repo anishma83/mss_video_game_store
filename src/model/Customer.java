@@ -1,5 +1,6 @@
 package com.mss.store.videogame.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -15,40 +16,65 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
-@Table(name="ECOMMERCECUSTOMER")
+@Table(name = "ECOMMERCECUSTOMER")
 @Entity
-public class Customer {
-	
+public class Customer implements Serializable {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="CustomerId")		private	int		customer_Id;
-	@Column(name="FirstName")		private String	first_Name;
-	@Column(name="LastName")		private String	last_Name;
-	@Column(name="Address1")		private String	address_1;
-	@Column(name="Address2")		private String	address_2;
-	@Column(name="City")			private String	city;
-	@Column(name="UsState")			private String	us_State;
-	@Column(name="Postal")			private String	postal;
-	@Column(name="Country")			private String	country;
-	@Column(name="Phone")			private String	phone;
-	@Column(name="Email")			private String	email;
-	@Column(name="Password")		private String	password;
-	@Column(name="CreditCard")		private String	credit_Card;
-	@Column(name="CreditCardId")	private String 	credit_Card_Id;
-	@Column(name="CreditExMo")		private String	credit_Expiration_Month;
-	@Column(name="CeditExYr")		private String	credit_Expiration_Year;
-	@Column(name="BillingAddress")	private String	billing_Address;
-	@Column(name="BillingAddress2")	private String	billing_Address_1;
-	@Column(name="BillingCity")		private String	billing_City;
-	@Column(name="BillingState")	private String	billing_State;
-	@Column(name="BillingPostal")	private String	billing_Postal;
-	@Column(name="BillingCountry")	private String	billing_Country;
-	@Column(name="DateEntered")		private Date	date_Entered;
-	@Column(name="Member")			private String	member;
-	@Transient 						private boolean is_Logged_In;
-	@ManyToMany(fetch=FetchType.EAGER,targetEntity=Order.class,mappedBy ="customer_Id" )
-									private List<Order> orders;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "CustomerId")
+	private int customer_Id;
+	@Column(name = "FirstName")
+	private String first_Name;
+	@Column(name = "LastName")
+	private String last_Name;
+	@Column(name = "Address1")
+	private String address_1;
+	@Column(name = "Address2")
+	private String address_2;
+	@Column(name = "City")
+	private String city;
+	@Column(name = "UsState")
+	private String us_State;
+	@Column(name = "Postal")
+	private String postal;
+	@Column(name = "Country")
+	private String country;
+	@Column(name = "Phone")
+	private String phone;
+	@Column(name = "Email")
+	private String email;
+	@Column(name = "Password")
+	private String password;
+	@Column(name = "CreditCard")
+	private String credit_Card;
+	@Column(name = "CreditCardId")
+	private String credit_Card_Id;
+	@Column(name = "CreditExMo")
+	private String credit_Expiration_Month;
+	@Column(name = "CeditExYr")
+	private String credit_Expiration_Year;
+	@Column(name = "BillingAddress")
+	private String billing_Address;
+	@Column(name = "BillingAddress2")
+	private String billing_Address_1;
+	@Column(name = "BillingCity")
+	private String billing_City;
+	@Column(name = "BillingState")
+	private String billing_State;
+	@Column(name = "BillingPostal")
+	private String billing_Postal;
+	@Column(name = "BillingCountry")
+	private String billing_Country;
+	@Column(name = "DateEntered")
+	private Date date_Entered;
+	@Column(name = "Member")
+	private String member;
+	@Transient
+	private boolean is_Logged_In;
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Order.class, mappedBy = "customer_Id")
+	private List<Order> orders;
+
 	public List<Order> getOrders() {
 		return orders;
 	}

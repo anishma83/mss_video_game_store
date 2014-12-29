@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <title>Member Profile</title>
 <section id="form">
@@ -16,7 +17,7 @@
 						<tr>
 							<td>Name:
 							<td>&nbsp
-							<td>${customer.first_Name}&nbsp${customer.last_Name }</td>
+							<td>${customer.first_Name}&nbsp${customer.last_Name}</td>
 						</tr>
 						<tr></tr>
 						<tr>
@@ -73,13 +74,70 @@
 							<td>${customer.billing_City },${customer.billing_State}
 								${customer.billing_Postal}, ${customer.billing_Country }</td>
 						</tr>
-						<tr>
-							<td><button class="btn btn-default" type="button" onclick="window.location = updateProfile.jsp">Update Profile</button></td>
-						</tr>
-
 					</table>
+					<br>
+					<div class="signup-form">
+						<form action="updateProfile">
+							<BUTTON class="btn btn-default" type="submit">Update
+								Profile</BUTTON>
+						</form>
+					</div>
+					<br>
 				</div>
 			</div>
 		</div>
 	</div>
+
 </section>
+<section>
+<div class="container">
+		
+			<thead>
+							<h3>Order History</h3>
+						</thead>
+		
+<div>
+		<c:if test="${!empty order}">
+			<table border="1" style="width: 100%">
+				<tr>
+					<th>Order Number</th>
+					<th>Order Date</th>
+					<th>Quantity</th>
+					<th>Price</th>
+					<th>SKU</th>
+					<th>Product Name</th>
+					<th>Supplier</th>
+					<th>Image</th>
+
+				</tr>
+				<c:forEach items="${order}" var="order">
+					<tr>
+						<td>${order.order_Id}</td>
+						<td>${order.order_Date}</td>
+						<c:forEach items="${order.orderDetails }" var="details">
+							<td>${details.quantity}</td>
+							<td>${details.product.unit_Price}</td>
+							<td>${details.product.sku}</td>
+							<td>${details.product.product_Name}</td>
+							<td>${details.product.supplier.company_Name}</td>
+							<td><img src="${details.product.image}"
+								style="width: 100px; height: 120px" /></td>
+						</c:forEach>
+						     <td><a href="${pageContext.request.contextPath}/viewOrderDetails?id=${order.order_Id}" >View Details</a></td> 
+
+					</tr>
+				</c:forEach>
+			</table>
+		</c:if>
+		<br>
+		<div>
+			<div class="signup-form">
+				<form action="updateProfile">
+					<BUTTON class="btn btn-default" type="submit">Update
+						Profile</BUTTON>
+				</form>
+			</div>
+			</div>
+	</div>
+	</div>
+	</section>		

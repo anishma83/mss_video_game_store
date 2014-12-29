@@ -5,7 +5,7 @@
 <div class="signup-form">
 	<!--login form-->
 	<H2>Update Profile</H2>
-	<form:form action="saveCustomer" modelAttribute="customer"
+	<form:form action="updateCustomer" modelAttribute="customer"
 		method="GET">
 		<table>
 			<tr>
