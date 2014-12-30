@@ -74,7 +74,7 @@
 							<c:param name="action" value="list" />
 							<c:param name="genreSearch" value="${genreSearch}" />
 							<c:param name="searchValue" value="${searchValue}" />
-							<c:param name="pID" value="${priceRange}" />
+							<c:param name="pID" value="${pID}" />
 							<c:param name="p" value="~" />
 						</c:url>
 						<c:forEach items="${pagedListHolder.pageList}" var="product">
