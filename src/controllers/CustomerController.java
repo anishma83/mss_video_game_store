@@ -1,6 +1,7 @@
 package com.mss.store.videogame.web.controllers;
 
 import java.text.ParseException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,7 @@ import com.mss.store.videogame.dao.SupplierDao;
 import com.mss.store.videogame.model.Customer;
 import com.mss.store.videogame.model.Order;
 import com.mss.store.videogame.model.OrderDetail;
-import com.mss.store.videogame.model.Product;
-import com.mss.store.videogame.model.Supplier;
+
 
 @Controller
 public class CustomerController {
@@ -114,11 +114,12 @@ public class CustomerController {
 	public ModelAndView viewProfile() {
 		ModelAndView model = new ModelAndView("Template");
 		List<Order> order = customer.getOrders();
-		for (Order o : order) {
-			for (OrderDetail od : o.getOrderDetails()) {
+		if(order!=null)
+			for (Order o : order) {
+				for (OrderDetail od : o.getOrderDetails()) {
 
+				}
 			}
-		}
 
 		model.addObject("order", order);
 		model.addObject("customer", this.customer);
@@ -155,7 +156,8 @@ public class CustomerController {
 	@RequestMapping(value = "/viewOrderDetails", method = RequestMethod.GET)
 	public ModelAndView viewOrderDetails(@RequestParam int id) {
 		ModelAndView model = new ModelAndView("Template");
-		List<Order> order = orderDao.lookupById(id);
+		List<Order> order = new ArrayList<Order>();
+		order.add(orderDao.lookupById(id));
 		model.addObject("order", order);
 		model.addObject("mainpage", "orderDetails.jsp");
 		return model;

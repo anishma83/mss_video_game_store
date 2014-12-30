@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mss.store.videogame.dao.CategoryDao;
@@ -47,14 +46,16 @@ public class TestController {
 	ShipperDao	shipperDao;
 	@Autowired
 	SupplierDao	supplierDao;
+	@Autowired 
+	Customer customer;
 	
 	
 	@RequestMapping("/hello")
-	protected ModelAndView helloWorldTest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception
+	protected ModelAndView helloWorldTest() throws Exception
 
 	{
 		ModelAndView model = new ModelAndView("Test");
+		
 		model.addObject("hello", "Hello World Test");
 		
 		List<Category> categories = categoryDao.list();
@@ -77,6 +78,23 @@ public class TestController {
 		
 		List<Supplier> suppliers	= supplierDao.list();
 		model.addObject("suppliers", suppliers);
+		
+		model.addObject("customer", this.customer);
+		
+		System.out.println("Customer: "+this.customer.getFirst_Name()+" "+customer.getLast_Name()+"\n Order Count: "
+			//	+customer.getOrders().size()
+				);
+		
+		return model;
+	}
+	
+	
+	@RequestMapping("/hibernate")
+	protected ModelAndView helloWorld()
+	{
+		this.customer.getOrders();
+		ModelAndView model = new ModelAndView("TestHibernate");
+		model.addObject("customer", this.customer);
 		
 		return model;
 	}

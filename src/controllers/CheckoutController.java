@@ -55,7 +55,7 @@ public class CheckoutController {
 			 
 		}else
 		{
-			customer = customerDao.lookupById(1).get(0);
+			customer = customerDao.lookupById(1);
 		}
 		model.addObject("customer", customer);
 		
@@ -85,7 +85,7 @@ public class CheckoutController {
 			cartTotal+=od.getPrice();
 			salesTax+=od.getSales_Tax();
 			shippingCost +=2;
-			products.addAll(productDao.lookupById(od.getProduct_Id()));
+			products.add(productDao.lookupById(od.getProduct_Id()));
 		}
 		model.addObject("mainpage","checkout.jsp");
 		model.addObject("shippingCost", shippingCost);

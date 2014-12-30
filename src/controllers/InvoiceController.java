@@ -58,7 +58,7 @@ public class InvoiceController {
 			 
 		}else
 		{
-			customer = customerDao.lookupById(1).get(0);
+			customer = customerDao.lookupById(1);
 		}
 		model.addObject("customer", customer);
 		
@@ -85,7 +85,7 @@ public class InvoiceController {
 		
 		for(OrderDetail od: currentOrderDetails)
 		{
-			products.addAll(productDao.lookupById(od.getProduct_Id()));
+			//products.addAll(productDao.lookupById(od.getProduct_Id()));
 		}
 		
 		/*
