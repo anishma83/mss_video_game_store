@@ -93,5 +93,11 @@ private SessionFactory sessionfactory;
 		
 		return products;
 	}
-
+	public List<Product> lookupByPrice(int start, int end)
+	{
+		Session session = this.sessionfactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		List<Product> products = (List<Product>) session.createQuery("from Product where unit_Price >? AND unit_Price<?").setInteger(0, start).setInteger(1, end).list();
+		return products;
+	}
 }

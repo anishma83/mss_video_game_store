@@ -7,8 +7,12 @@ import java.util.StringTokenizer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +30,6 @@ import com.mss.store.videogame.model.Product;
 public class ProductController {
 	private CartService cartService;
 	
-	public void setCartService(CartService cartService) {
-		this.cartService = cartService;
-	}
 	
 	@Autowired
 	private ProductDao	productDao;
@@ -36,6 +37,98 @@ public class ProductController {
 	private CategoryDao	categoryDao;
 	
 	@RequestMapping("/products")
+	protected String mainLoad(ModelMap map ,
+					HttpServletRequest request,
+					HttpServletResponse response) throws Exception {
+		PagedListHolder pagedListHolder = new PagedListHolder<Product>( productDao.list());
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		int pageSize = 10;
+		pagedListHolder.setPageSize(pageSize);
+		map.addAttribute("pagedListHolder", pagedListHolder);
+		
+		
+		map.addAttribute("URIPATH","products");
+		map.addAttribute("categories",categoryDao.list());
+		map.addAttribute("pr", new Product());//pricerange
+		map.addAttribute("catnames", new Category());
+		map.addAttribute("mainpage", "products.jsp");
+		
+		return "Template";
+	}
+	
+	@RequestMapping("/search")
+	protected String search(ModelMap map,
+			HttpServletRequest request,
+			HttpServletResponse response, @RequestParam(value = "searchValue") String searchValue) throws Exception
+	{
+		PagedListHolder pagedListHolder = new PagedListHolder<Product>( productDao.search("product_Name", searchValue));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		int pageSize = 10;
+		pagedListHolder.setPageSize(pageSize);
+		map.addAttribute("pagedListHolder", pagedListHolder);
+		
+		map.addAttribute("searchValue",searchValue);
+		map.addAttribute("URIPATH","search");
+		map.addAttribute("categories",categoryDao.list());
+		map.addAttribute("pr", new Product());//pricerange
+		map.addAttribute("catnames", new Category());
+		map.addAttribute("mainpage", "products.jsp");
+		
+		return "Template";
+	}
+	
+	@RequestMapping("/genre")
+	protected String searchByCat(@RequestParam(value = "genreSearch") String searchValue,
+			ModelMap map ,
+			HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		PagedListHolder pagedListHolder = new PagedListHolder<Product>( productDao.lookupByCategoryId(Integer.parseInt(searchValue)));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		int pageSize = 10;
+		pagedListHolder.setPageSize(pageSize);
+		map.addAttribute("pagedListHolder", pagedListHolder);
+		
+		map.addAttribute("categories",categoryDao.list());
+		
+		map.addAttribute("genreSearch",searchValue);
+		map.addAttribute("URIPATH","genre");
+		map.addAttribute("pr", new Product());//pricerange
+		map.addAttribute("catnames", new Category());
+		map.addAttribute("mainpage", "products.jsp");
+		return "Template";
+	}
+	@RequestMapping("/pricing")
+	protected String searchByPricing(@RequestParam(value = "pID") String pricerange,
+			ModelMap map,
+			HttpServletRequest request,
+			HttpServletResponse response) throws Exception{
+		StringTokenizer st = new StringTokenizer(pricerange);
+		int start=Integer.parseInt(st.nextToken());
+		st.nextToken();
+		int end=Integer.parseInt(st.nextToken());
+		
+		
+		PagedListHolder pagedListHolder = new PagedListHolder<Product>( productDao.lookupByPrice(start, end));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		int pageSize = 10;
+		pagedListHolder.setPageSize(pageSize);
+		map.addAttribute("pagedListHolder", pagedListHolder);
+		
+		map.addAttribute("categories",categoryDao.list());
+		map.addAttribute("pID",pricerange);
+		map.addAttribute("URIPATH","pricing");
+		map.addAttribute("pr", new Product());//pricerange
+		map.addAttribute("catnames", new Category());
+		map.addAttribute("mainpage", "products.jsp");
+		return "Template";
+	}
+	
+	@Deprecated
+	@RequestMapping("/productssss")
 	protected ModelAndView load(HttpServletRequest request,
 			HttpServletResponse response) throws Exception
 	{
@@ -52,14 +145,15 @@ public class ProductController {
 		mav.addObject("mainpage", "products.jsp");
 		return mav;
 	}
-	@RequestMapping("/search")
+	@Deprecated
+	@RequestMapping("/searchDEP")
 	protected ModelAndView searchProd(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam("searchValue") String searchValue) throws Exception
 	{
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("Template");
-		List<Product> pi = new ArrayList<Product>();
+		
 		List<Category> categories = categoryDao.list();
 		
 		mav.addObject("categories", categories);
@@ -70,7 +164,8 @@ public class ProductController {
 		mav.addObject("mainpage", "products.jsp");
 		return mav;
 	}
-	@RequestMapping("/genre")
+	@Deprecated
+	@RequestMapping("/genreDEP")
 	public ModelAndView wtf(@ModelAttribute("Mss_Video_Game_Store") Category cat, ModelAndView mav)throws Exception {
 		//ModelAndView mav = new ModelAndView()	
 		mav.setViewName("Template");
@@ -100,7 +195,8 @@ public class ProductController {
 		mav.addObject("mainpage", "products.jsp");
 		return mav;
 	}
-	@RequestMapping("/pricing")
+	@Deprecated
+	@RequestMapping("/pricingDEP")
 	public ModelAndView plt(@ModelAttribute() Product priceRange, ModelAndView mav)throws Exception {
 		mav.setViewName("Template");
 		List<Product> pi = new ArrayList<Product>();
@@ -125,6 +221,8 @@ public class ProductController {
 		mav.addObject("mainpage", "products.jsp");
 		return mav;
 	}
+	
+	//GETS/SETS
 	public ProductDao getProductDao() {
 		return productDao;
 	}
@@ -137,12 +235,13 @@ public class ProductController {
 	public void setCategoryDao(CategoryDao categoryDao) {
 		this.categoryDao = categoryDao;
 	}
-	public void addProductPageObjects(ModelAndView mav){
-/*		mav.addObject("", );
-		mav.addObject("", );
-		mav.addObject("", );
-		mav.addObject("", );
-*/	}
+	public void setCartService(CartService cartService) {
+		this.cartService = cartService;
+	}
+	//Support 
+	public void addPagnation(String type,String[] params){
+		
+	}
 }
 
 
