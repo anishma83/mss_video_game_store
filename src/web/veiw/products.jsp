@@ -56,7 +56,7 @@
 									0</b> <b class="pull-right">$ 600</b>
 							</div>
 							<form:form id="priceSlider"  method="POST"
-								action="/Mss_Video_Game_Store/pricing">
+								action="${pageContext.request.contextPath }/pricing">
 									<input name="pID" id="pID" value="" style="display:none;" />
 								<a
 									onclick="document.getElementById('pID').value= document.getElementsByClassName('tooltip-inner')[0].innerHTML;document.getElementById('priceSlider').submit();">Search By Price</a>
