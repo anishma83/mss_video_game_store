@@ -1,67 +1,44 @@
 package com.mss.store.videogame.dao;
 
+
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mss.store.videogame.model.Category;
 
-@Transactional
-@Service
-public class CategoryDaoImpl implements CategoryDao
+
+@Repository
+public class CategoryDaoImpl extends HibernateDao<Category> implements CategoryDao
 {
-	private SessionFactory sessionFactory;
-	
-	public void setSessionFactory(SessionFactory sessionFactory)
-	{
-		this.sessionFactory = sessionFactory;
-	}
-
-	@Override
-	public void save(Category category) {
-		Session session = this.sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.persist(category);
-		tx.commit();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Category> list() {
-	
-		List<Category> categories;
-		Session session = this.sessionFactory.getCurrentSession();
-		categories = (List<Category>) session.createQuery("from Category").list();
-		return categories;
-	}
-
-	@Override
-	public List<Category> lookupById(int id) {
-		
-		Session session = this.sessionFactory.getCurrentSession();
-		@SuppressWarnings("unchecked")
-		List<Category> categoires = (List<Category>) session.createQuery("from Category where category_Id=?").setParameter(0, id).list();
-		return categoires;
-	}
 
 	@Override
 	public List<Category> lookupByName(String name) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session =currentSession();
+		Query query = session.createQuery("from Category where name= :name");
+		query.setString("name", name);
+		
 		@SuppressWarnings("unchecked")
-		List<Category> categories = (List<Category>) session.createQuery("from Category where name=?").setString(01, name).list();
+		List<Category> categories = (List<Category>) query.list();
 		return categories;
 	}
 
 	@Override
 	public List<Category> lookupByDescription(String description) {
 		
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session =currentSession();
+		Query query = session.createQuery("from Category where name= :description");
+		query.setString("description", description);
 		@SuppressWarnings("unchecked")
-		List<Category> categories = (List<Category>) session.createQuery("from Category where name=?").setString(0, description).list();
+		List<Category> categories = (List<Category>) query.list();
 		return categories;
 	}
 	

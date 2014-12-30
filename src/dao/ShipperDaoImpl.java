@@ -1,7 +1,9 @@
 package com.mss.store.videogame.dao;
 
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,45 +14,17 @@ import com.mss.store.videogame.model.Shipper;
 
 @Transactional
 @Service
-public class ShipperDaoImpl implements ShipperDao{
-	private SessionFactory sessionfactory;
-	
-	public void setSessionFactory(SessionFactory sessionfactory){
-		this.sessionfactory=sessionfactory;
-	}
-		
-	
-	
-	@Override
-	public void save(Shipper shipper) {
-		Session session = this.sessionfactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.persist(shipper);
-		tx.commit();
-		
-	}
+public class ShipperDaoImpl extends HibernateDao<Shipper> implements ShipperDao{
 
-	@Override
-	public List<Shipper> list() {
-		Session session = this.sessionfactory.getCurrentSession();
-		@SuppressWarnings("unchecked")
-		List<Shipper> shippers = session.createQuery("from Shipper").list();
-		return shippers;
-	}
-
-	@Override
-	public List<Shipper> lookupById(int id) {
-		Session session = this.sessionfactory.getCurrentSession();
-		@SuppressWarnings("unchecked")
-		List<Shipper> shippers = session.createQuery("from Shipper where shipper_Id = ?").setParameter(0, id).list();
-		return shippers;
-	}
 
 	@Override
 	public List<Shipper> lookupByName(String name) {
-		Session session = this.sessionfactory.getCurrentSession();
+		Session session = currentSession();
+		Query query = session.createQuery("from Shipper where shipper_Name = :name");
+		query.setParameter("name", name);
+		
 		@SuppressWarnings("unchecked")
-		List<Shipper> shippers = session.createQuery("from Shipper where shipper_Name = ?").setParameter(0, name).list();
+		List<Shipper> shippers = query.list();
 		return shippers;
 	}
 
