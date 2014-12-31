@@ -6,6 +6,12 @@
 								   http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 			metadata-complete="true">
 				
+<!-- Listeners -->	
+<listener>
+	<listener-class>com.mss.store.videogame.web.SessionListener</listener-class>
+</listener>			
+				
+<!--  End Listeners -->				
 <!-- Start Servlet -->								   
   <servlet>
   	<servlet-name>main</servlet-name>
